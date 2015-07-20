@@ -78,7 +78,7 @@ class DatabaseConnection extends \mysqli {
     }
 
     public function getArray($query = false, $close = false) {
-        $arrReturn = [];
+        $arrReturn = array();
 
         if ($this->getCount($query, false) > 0) {
             while($row = $this->resp->fetch_array(MYSQLI_ASSOC)) {

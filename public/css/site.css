@@ -8,6 +8,15 @@ body {
   flex-direction: column;
   justify-content: space-between; }
 
+.msgs p {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: black; }
+  .msgs p.bg-danger {
+    color: red; }
+
 .main {
   padding: 25px 0; }
 

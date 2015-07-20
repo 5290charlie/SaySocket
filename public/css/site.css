@@ -43,6 +43,10 @@ body {
 .instructions {
   font-size: 15px;
   line-height: 25px; }
+  .instructions .extra {
+    font-size: 12px;
+    line-height: 13px;
+    padding-left: 25px; }
 
 footer {
   font-size: 10px;

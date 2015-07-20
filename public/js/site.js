@@ -22,10 +22,10 @@ $(document).ready(function() {
                     $('#cmd').val(response.cmd);
                     $('#instructions-cmd').text(' $ '+response.cmd);
                 } else if (response.errors) {
-                    $('.msgs').find('.msgs-wrap').empty();
+                    $('.msgs').empty();
 
                     $.each(response.errors, function(i, msg) {
-                        $('.msgs').find('.msgs-wrap').append('<p class="bg-danger">' + msg + '</p>');
+                        $('.msgs').append('<p class="bg-danger">' + msg + '</p>');
                     });
                 }
             },

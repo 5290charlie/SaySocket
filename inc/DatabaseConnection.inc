@@ -4,12 +4,12 @@ class DatabaseConnection extends \mysqli {
     private $conn = false;
     private $resp = false;
 
-    private $required = [
+    private $required = array(
         'DB_HOSTNAME',
         'DB_USERNAME',
         'DB_PASSWORD',
         'DB_DATABASE',
-    ];
+    );
 
     public function __construct() {
         foreach ($this->required as $constant) {

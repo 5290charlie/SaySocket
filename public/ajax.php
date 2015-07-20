@@ -2,10 +2,10 @@
 
 require_once '../inc/config.inc';
 
-$response = [
+$response = array(
     'success' => false,
-    'errors' => [],
-];
+    'errors' => array(),
+);
 
 try {
     if (isset($_POST) && isset($_POST['email'])) {

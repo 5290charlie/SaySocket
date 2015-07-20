@@ -1,0 +1,155 @@
+@mixin radius-top-left($size:5px) {
+  -webkit-border-top-left-radius: $size;
+  -moz-border-radius-topleft: $size;
+  border-top-left-radius: $size;
+}
+
+@mixin radius-top-right($size:5px) {
+  -webkit-border-top-right-radius: $size;
+  -moz-border-radius-topright: $size;
+  border-top-right-radius: $size;
+}
+
+@mixin radius-bottom-left($size:5px) {
+  -webkit-border-bottom-left-radius: $size;
+  -moz-border-radius-bottomleft: $size;
+  border-bottom-left-radius: $size;
+}
+
+@mixin radius-bottom-right($size:5px) {
+  -webkit-border-bottom-right-radius: $size;
+  -moz-border-radius-bottomright: $size;
+  border-bottom-right-radius: $size;
+}
+
+@mixin radius-top($size:5px) {
+  @include radius-top-left($size);
+  @include radius-top-right($size);
+}
+
+@mixin radius-bottom($size:5px) {
+  @include radius-bottom-left($size);
+  @include radius-bottom-right($size);
+}
+
+@mixin radius-left($size:5px) {
+  @include radius-top-left($size);
+  @include radius-bottom-left($size);
+}
+
+@mixin radius-right($size:5px) {
+  @include radius-top-right($size);
+  @include radius-bottom-right($size);
+}
+
+@mixin radius($size:5px) {
+  @include radius-top($size);
+  @include radius-bottom($size);
+}
+
+@mixin box-shadow($x:0, $y:0, $s:5px, $c:#cccccc) {
+  -webkit-box-shadow: $x $y $s $c;
+  -moz-box-shadow: $x $y $s $c;
+  box-shadow: $x $y $s $c;
+}
+
+@mixin opacity($opacity: .5) {
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  -webkit-opacity: $opacity;
+  opacity: $opacity;
+  $opperc: $opacity * 100;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=$opperc);
+  filter: alpha(opacity=$opperc);
+}
+
+@mixin bg-size($size) {
+  background-size: $size;
+  -ms-behavior: url(/css/backgroundsize.min.htc);
+}
+
+@mixin bg-gradient-ud($from, $to) {
+  background: $from;
+  background: -webkit-linear-gradient($from, $to); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($from, $to); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($from, $to); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($from, $to); /* Standard syntax (must be last) */
+}
+
+@mixin bg-gradient($from, $to) {
+  @include bg-gradient-ud($from, $to);
+}
+
+@mixin bg-gradient-lr($from, $to) {
+  background: $from;
+  background: -webkit-linear-gradient(left, $from , $to); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, $from, $to); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, $from, $to); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, $from , $to); /* Standard syntax (must be last) */
+}
+
+@mixin bg-two-color($c1, $c2) {
+  background: $c1; /* Old browsers */
+  background: -moz-linear-gradient(left,  $c1 0%, $c1 50%, $c2 50%, $c2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$c1), color-stop(50%,$c1), color-stop(50%,$c2), color-stop(100%,$c2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  $c1 0%,$c1 50%,$c2 50%,$c2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  $c1 0%,$c1 50%,$c2 50%,$c2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  $c1 0%,$c1 50%,$c2 50%,$c2 100%); /* IE10+ */
+  background: linear-gradient(to right,  $c1 0%,$c1 50%,$c2 50%,$c2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$c1}', endColorstr='#{$c2}',GradientType=1 ); /* IE6-9 */
+}
+
+@mixin transition($what: all, $time: .25s, $effect: ease-in-out) {
+  -webkit-transition: $what $time $effect;
+  -moz-transition: $what $time $effect;
+  -o-transition: $what $time $effect;
+  transition: $what $time $effect;
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin staticLink() {
+  &, &:hover, &:active, &:focus, &:visited {
+    @content;
+  }
+}
+
+@mixin mqMin($media) {
+  $size: $media;
+  @if $media == 'sm' {
+    $size: 768px;
+  } @else if $media == 'md' {
+    $size: 992px;
+  } @else if $media == 'lg' {
+    $size: 1200px;
+  }
+  @media only screen and (min-width: $size) { @content; }
+}
+
+@mixin mqMax($media) {@media only screen and (max-width: $media) { @content; } }
+@mixin mqBetween($minSize, $maxSize) {@media only screen and (min-width: $minSize) and (max-width: $maxSize) { @content; } }
+
+@mixin fontNormal() {
+  font-weight: 400;
+}
+@mixin fontThin() {
+  font-weight: 100;
+}
+@mixin fontLight() {
+  font-weight: 300;
+}
+@mixin fontMed() {
+  font-weight: 500;
+}
+@mixin fontSemibold() {
+  font-weight: 600;
+}
+@mixin fontBlack() {
+  font-weight: 900;
+}

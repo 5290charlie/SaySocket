@@ -9,8 +9,8 @@ MONITOR=$DIR/monitor
 MON_ESC=`echo $MONITOR | sed 's/[\\/&]/\\\\&/g'`
 IN_PROF="`cat $PROFILE | grep \"$SCANNER\"`"
 
-if [[ ! -d $DIR_NAME ]]; then
-   mkdir $DIR_NAME
+if [[ ! -d $DIR ]]; then
+   mkdir $DIR
 fi
 
 curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h={{USER_HASH}}"

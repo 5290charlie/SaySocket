@@ -3,10 +3,7 @@ html, body {
 
 body {
   background-color: #222222;
-  color: #dedede;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; }
+  color: #dedede; }
 
 .msgs p {
   -webkit-border-radius: 5px;

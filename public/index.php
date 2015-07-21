@@ -9,10 +9,10 @@ require_once '../inc/config.inc';
 
         <title>The Talking Troll</title>
 
-        <link rel="stylesheet" type="text/css" href="css/build.reset.css" />
+        <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/build/site.css" />
+        <link rel="stylesheet" type="text/css" href="css/site.css" />
     </head>
 
     <body>
@@ -81,7 +81,7 @@ require_once '../inc/config.inc';
                                 <li>
                                     With IP and Port specified in the notification email, connect using telnet
                                     <pre> $ telnet [IP ADDRESS] [PORT]</pre>
-                                    This will look something like this:
+                                    This should look something like this:
                                     <pre> $ telnet 192.168.1.100 12345</pre>
                                 </li>
                                 <li>

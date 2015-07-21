@@ -15,7 +15,6 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 10px 20px;
-    color: black;
 
     &.bg-danger {
       color: red;
@@ -25,6 +24,15 @@ body {
 
 .main {
   padding: 25px 0;
+}
+
+.total-wrap {
+  float: right;
+  font-size: 15px;
+
+  .total {
+    font-size: 18px;
+  }
 }
 
 .result {

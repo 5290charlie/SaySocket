@@ -9,13 +9,18 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  padding: 10px 20px;
-  color: black; }
+  padding: 10px 20px; }
   .msgs p.bg-danger {
     color: red; }
 
 .main {
   padding: 25px 0; }
+
+.total-wrap {
+  float: right;
+  font-size: 15px; }
+  .total-wrap .total {
+    font-size: 18px; }
 
 .result {
   -webkit-transition: all 0.25s ease-in-out;

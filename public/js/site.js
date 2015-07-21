@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    updateTotal();
+
     $(document).on('click','.select-ctrl', function() {
         var target = $(this).attr('select-target');
 
@@ -8,22 +10,26 @@ $(document).ready(function() {
     });
 
     $('form').on('submit', function() {
+        $('.msgs').empty();
+
         $.ajax({
             url: 'ajax.php',
             type: 'POST',
             dataType: 'json',
             data: {
+                action: 'generate',
                 email: $('#email').val()
             },
             success: function(response) {
                 if (response.success && response.cmd) {
                     $('.result').addClass('active');
-
                     $('#cmd').val(response.cmd);
                     $('#instructions-cmd').text(' $ '+response.cmd);
-                } else if (response.errors) {
-                    $('.msgs').empty();
 
+                    if (response.hits) {
+                        $('.msgs').append('<p class="bg-primary">The socket associated to this email has been opened ' + response.hits + ' time(s)</p>');
+                    }
+                } else if (response.errors) {
                     $.each(response.errors, function(i, msg) {
                         $('.msgs').append('<p class="bg-danger">' + msg + '</p>');
                     });
@@ -35,5 +41,29 @@ $(document).ready(function() {
         });
 
         return false;
-    })
+    });
 });
+
+function updateTotal() {
+    $.ajax({
+        url: 'ajax.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'total'
+        },
+        success: function(response) {
+            if (response.success && response.total) {
+                $('.total').text(response.total);
+            }
+        },
+        failure: function(response) {
+            console.log(response);
+        }
+    });
+
+    setTimeout(function() {
+        updateTotal();
+    }, 5000);
+}
+

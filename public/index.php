@@ -7,7 +7,7 @@ require_once '../inc/config.inc';
     <head>
         <meta charset="utf-8" />
 
-        <title>The Talking Troll</title>
+        <title>Say Socket</title>
 
         <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
@@ -20,7 +20,7 @@ require_once '../inc/config.inc';
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>The Talking Troll</h1>
+                        <h1>Say Socket <span class="total-wrap"><span class="total"></span> portals opened!</span></h1>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@ say> </pre>
                                     <p class="extra">Except special characters and existing shell commands</p>
                                 </li>
                                 <li>
-                                    <h3>Are they confused and muting their sound?<br />Good thing it comes with a volume override!</h3>
+                                    <h3>Are they confused and attempting to mute their sound?<br />Good thing it comes with a volume override!</h3>
                                     Instead of entering something silly for their computer to say, use the custom "volume" command
                                     <p class="extra">The "volume" command will accept integer [0-9] as the volume level</p>
                                     <pre> say> volume 9</pre>

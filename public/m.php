@@ -25,7 +25,7 @@ if (isset($_GET) && isset($_GET['ip']) && isset($_GET['port']) && isset($_GET['h
             $result = $dbc->getArray($query);
 
             if (count($result) > 0) {
-                $msg = "SS Portal Opened! IP: $ip, PORT: $port";
+                $msg = "SS Portal Opened! IP: $ip, PORT: $port\n\nConnection command:\n $ telnet $ip $port";
 
                 sendMail($result[0]['email'], $msg);
 

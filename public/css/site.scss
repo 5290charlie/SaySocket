@@ -28,10 +28,11 @@ body {
 
 .total-wrap {
   float: right;
-  font-size: 15px;
+  font-size: 12px;
+  padding: 15px 0;
 
   .total {
-    font-size: 18px;
+    font-size: 13px;
   }
 }
 
@@ -80,6 +81,13 @@ footer {
 
 /* Small devices (tablets, 768px and up) 384 x 197 */
 @media (min-width: 768px) {
+  .total-wrap {
+    font-size: 15px;
+
+    .total {
+      font-size: 18px;
+    }
+  }
 }
 
 /* Medium devices (desktops, 992px and up) */

@@ -18,6 +18,16 @@ require_once '../inc/config.inc';
     </head>
 
     <body>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-65431506-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+
         <header>
             <div class="container">
                 <div class="row">
@@ -35,6 +45,17 @@ require_once '../inc/config.inc';
                         <div class="msgs">
 
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>Did you know that OSX (Mac) has a command to make the computer talk?</p>
+                        <p>
+                            It's freaking hilarious! After playing around with this new discovery,
+                            I began do dream up some troll applications to prank friends using this command.
+                            Say Socket is the latest iteration of my say prank scripts. Enjoy!
+                        </p>
+                        <p>Signup below to generate an installation command that will notify you by email when the socket is accessed*</p>
                     </div>
                 </div>
                 <div class="row">
@@ -114,7 +135,9 @@ say> </pre>
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <p>USE AT YOUR OWN RISK!</p>
+                        <p>*By signing up with Say Socket, you are allowing email notifications when your installed socket is opened.</p>
+                        <p>Your email will never be given or shown anywhere outside the Say Socket signup database</p>
+                        <p>USE AT YOUR OWN RISK! Make sure to only prank close friends that can take a joke!</p>
                         <p>No rm or delete commands exist within this script (with the exception of the command above which removes itself after downloading and running).</p>
                         <p>Only applicable within a simple local network setting (without complex port forwarding)</p>
                         <p>This will append a line to ~/.bash_profile so it restarts with each new terminal session</p>

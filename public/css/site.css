@@ -18,9 +18,10 @@ body {
 
 .total-wrap {
   float: right;
-  font-size: 15px; }
+  font-size: 12px;
+  padding: 15px 0; }
   .total-wrap .total {
-    font-size: 18px; }
+    font-size: 13px; }
 
 .result {
   -webkit-transition: all 0.25s ease-in-out;
@@ -56,6 +57,11 @@ footer {
 
 /* Mid-small devices (smartphone landscape, 480px and up) */
 /* Small devices (tablets, 768px and up) 384 x 197 */
+@media (min-width: 768px) {
+  .total-wrap {
+    font-size: 15px; }
+    .total-wrap .total {
+      font-size: 18px; } }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .container {

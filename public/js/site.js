@@ -25,7 +25,7 @@ $(document).ready(function() {
                     if (typeof ga === 'function') {
                         ga('send', 'event', 'generated', $('#email').val());
                     }
-                    
+
                     $('.result').addClass('active');
                     $('#cmd').val(response.cmd);
                     $('#instructions-cmd').text(' $ '+response.cmd);

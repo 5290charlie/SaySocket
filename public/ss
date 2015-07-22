@@ -7,6 +7,10 @@ define('PORT_MIN', 1024);
 define('PORT_MAX', 65535);
 define('PROMPT', 'say> ');
 
+$voices = load_voice_list();
+
+$current_voice = count($voices) > 0 ? $voices[0] : 'alex';
+
 // Allow the script to hang around waiting for connections.
 set_time_limit(0);
 
@@ -23,7 +27,7 @@ if ($argc > 1) {
 }
 
 if ($argc > 2) {
-    $port = (int) $argv[2];
+    $port = (int)$argv[2];
 }
 
 // Error check address and port
@@ -37,12 +41,12 @@ if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
 }
 
 if (socket_bind($sock, $address, $port) === false) {
-	socket_close($sock);
+    socket_close($sock);
     die("socket_bind() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
 }
 
 if (socket_listen($sock, 5) === false) {
-	socket_close($sock);
+    socket_close($sock);
     die("socket_listen() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
 }
 
@@ -83,25 +87,41 @@ do {
             default:
                 $buf = trim($buf, ' _-[]()"\'');
 
-					 if (preg_match('/^volume (\d)$/i', $buf, $arr)) {
-					 	if (isset($arr[1]) && is_numeric($arr[1])) {
-							$lvl = (int) $arr[1];
-							
-							if ($lvl > 9) $lvl = 9;
-							if ($lvl < 0) $lvl = 0;
+                if (preg_match('/^voices$/i', $buf)) {
+                    foreach ($voices as $voice) {
+                        $msg .= $voice . "\n";
+                    }
+                } else if (preg_match('/^voice$/i', $buf, $arr) || preg_match('/^voice ([a-z]+)$/i', $buf, $arr)) {
+                    if (isset($arr[1])) {
+                        $voice = $arr[1];
 
-							$cmd = "osascript -e \"set Volume $lvl\"";
-							exec($cmd);
-						}
+                        if (in_array($voice, $voices)) {
+                            $current_voice = $voice;
+                        } else {
+                            $msg .= "Voice '$voice' does not exist. Use 'voices' command to see a list of available voices\n";
+                        }
+                    }
+
+                    $msg .= "Current voice is: $current_voice\n";
+                } else if (preg_match('/^volume (\d)$/i', $buf, $arr)) {
+                    if (isset($arr[1]) && is_numeric($arr[1])) {
+                        $lvl = (int)$arr[1];
+
+                        if ($lvl > 9) $lvl = 9;
+                        if ($lvl < 0) $lvl = 0;
+
+                        $cmd = "osascript -e \"set Volume $lvl\"";
+                        exec($cmd);
+                    }
                 } else if (preg_match(REGEX_SIMPLE_STRING, $buf)) {
                     if (!command_exist($buf)) {
-                        $cmd = "say '$buf'";
+                        $cmd = "say -v $current_voice '$buf'";
                         exec($cmd);
                     } else {
                         $msg .= "Cannot say: '$buf', command exists\n";
                     }
                 } else {
-                    $msg .="Cannot say: '$buf', string is too complex\n";
+                    $msg .= "Cannot say: '$buf', string is too complex\n";
                 }
 
                 break;
@@ -122,14 +142,35 @@ function command_exist($cmd) {
 }
 
 function lookup_ip() {
-	for ($i=0; $i<10; $i++) {
-	   $cmd = "ipconfig getifaddr en$i";
-   	$adr = trim(exec($cmd));
-         
-   	if (preg_match(REGEX_VALID_IP_ADDRESS, $adr)) {
-      	return $adr;
-   	}	         
-	}
+    for ($i = 0; $i < 10; $i++) {
+        $cmd = "ipconfig getifaddr en$i";
+        $adr = trim(exec($cmd));
 
-	return '127.0.0.1';
+        if (preg_match(REGEX_VALID_IP_ADDRESS, $adr)) {
+            return $adr;
+        }
+    }
+
+    return '127.0.0.1';
+}
+
+function load_voice_list() {
+    $voices = array();
+
+    $ret = `say -v '?'`;
+    $arr = explode("\n", $ret);
+
+    foreach ($arr as $line) {
+        $stuff = explode(' ', $line);
+
+        if (isset($stuff[0])) {
+            $voice = strtolower(trim($stuff[0]));
+
+            if ($voice != '') {
+                $voices[] = strtolower(trim($stuff[0]));
+            }
+        }
+    }
+
+    return $voices;
 }

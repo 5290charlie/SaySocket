@@ -28,6 +28,16 @@ require_once '../inc/config.inc';
             ga('send', 'pageview');
         </script>
 
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- SS Heading ads -->
+        <ins class="adsbygoogle"
+             style="display:block;width:728px;height:90px;margin: 5px auto;"
+             data-ad-client="ca-pub-1152878338835253"
+             data-ad-slot="5254712929"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
         <header>
             <div class="container">
                 <div class="row">
@@ -149,15 +159,5 @@ say> </pre>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/site.js"></script>
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- SS Heading ads -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-1152878338835253"
-             data-ad-slot="5254712929"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </body>
 </html>

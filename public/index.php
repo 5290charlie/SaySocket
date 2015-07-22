@@ -28,15 +28,24 @@ require_once '../inc/config.inc';
             ga('send', 'pageview');
         </script>
 
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- SS Heading ads -->
-        <ins class="adsbygoogle"
-             style="display:block;width:728px;height:90px;margin: 5px auto;"
-             data-ad-client="ca-pub-1152878338835253"
-             data-ad-slot="5254712929"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <section class="ads">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- SS Responsive -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-1152878338835253"
+                             data-ad-slot="9471259722"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <header>
             <div class="container">

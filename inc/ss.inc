@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!BINARY_LOCATION
 <?php
 // Define constants
 define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");

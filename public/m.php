@@ -1,39 +1,36 @@
 <?php
 
-error_log('m script');
-
 require_once '../inc/config.inc';
 
 define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");
 define('MSG_SUBJECT', 'New SS Portal Opened!');
-define('MSG_HEADERS', "From: Server Alerts <alerts@cmr1.com>\r\nX-Mailer: PHP/" . phpversion());
+define('MSG_HEADERS', "From: Say Socket Alerts <alerts@saysocket.com>\r\nX-Mailer: PHP/" . phpversion());
 
 if (isset($_GET) && isset($_GET['ip']) && isset($_GET['port']) && isset($_GET['h'])) {
-    error_log('params set');
-//	$hash = md5(file_get_contents('ss'));
-//
-//	if ($_GET['hash'] == $hash) {
-//        error_log('valid hash');
+    $ip = $_GET['ip'];
+    $port = $_GET['port'];
 
-		$ip = $_GET['ip'];
-		$port = $_GET['port'];
+    if (preg_match(REGEX_VALID_IP_ADDRESS, $ip) && is_numeric($port)) {
+        $dbc = new DatabaseConnection();
+        $user_hash = $dbc->real_escape_string($_GET['h']);
+        $query = "SELECT email FROM " . DB_TABLE . " WHERE hash='$user_hash'";
+        $result = $dbc->getArray($query);
 
-		if (preg_match(REGEX_VALID_IP_ADDRESS, $ip) && is_numeric($port)) {
-            $dbc = new DatabaseConnection();
-            $user_hash = $dbc->real_escape_string($_GET['h']);
-            $query = "SELECT email FROM " . DB_TABLE . " WHERE hash='$user_hash'";
-            $result = $dbc->getArray($query);
+        if (count($result) > 0) {
+            $email = $result[0]['email'];
 
-            if (count($result) > 0) {
-                $msg = "SS Portal Opened! IP: $ip, PORT: $port\n\nConnection command:\n $ telnet $ip $port";
+            $msg = "
+                SS Portal Opened! IP: $ip, PORT: $port\n\n
+                Connection command:\n
+                 $ telnet $ip $port\n\n\n
+                To remove your email from the Say Socket database, visit: " . SERVER_HOST . "u.php?h=$user_hash";
 
-                sendMail($result[0]['email'], $msg);
+            sendMail($email, $msg);
 
-                $query = "UPDATE " . DB_TABLE . " SET hits=hits+1 WHERE hash='$user_hash'";
-                $dbc->runQuery($query);
-            }
-		}
-//	}
+            $query = "UPDATE " . DB_TABLE . " SET hits=hits+1 WHERE hash='$user_hash'";
+            $dbc->runQuery($query);
+        }
+    }
 }
 
 function sendMail($to, $msg) {

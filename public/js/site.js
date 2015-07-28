@@ -1,7 +1,7 @@
 $(document).ready(function() {
     updateTotal();
 
-    $(document).on('click','.select-ctrl', function() {
+    $(document).on('click', '.select-ctrl', function() {
         var target = $(this).attr('select-target');
 
         if (target && $(target).length) {
@@ -9,29 +9,43 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('keydown', 'input.readonly', function() {
+        return false;
+    });
+
     $('form').on('submit', function() {
         $('.msgs').empty();
+
+        var data = {
+            action: $(this).attr('data-action') ? $(this).attr('data-action') : 'submit'
+        };
+
+        $(this).find('input.form-input').each(function() {
+            data[$(this).attr('name')] = $(this).val();
+        });
 
         $.ajax({
             url: 'ajax.php',
             type: 'POST',
             dataType: 'json',
-            data: {
-                action: 'generate',
-                email: $('#email').val()
-            },
+            data: data,
             success: function(response) {
-                if (response.success && response.cmd) {
+                if (response.success) {
                     if (typeof ga === 'function') {
-                        ga('send', 'event', 'generated', $('#email').val());
+                        ga('send', 'event', data.action, JSON.stringify(data));
                     }
 
-                    $('.result').addClass('active');
-                    $('#cmd').val(response.cmd);
-                    $('#instructions-cmd').text(' $ '+response.cmd);
+                    if (data.action == 'generate' && response.cmd) {
+                        $('.result').addClass('active');
+                        $('#cmd').val(response.cmd);
+                        $('#instructions-cmd').text(' $ '+response.cmd);
 
-                    if (response.hits) {
-                        $('.msgs').append('<p class="bg-primary">The socket associated to this email has been opened ' + response.hits + ' time(s)</p>');
+                        if (response.hits) {
+                            $('.msgs').append('<p class="bg-primary">The socket associated to this email has been opened ' + response.hits + ' time(s)</p>');
+                        }
+                    } else if (data.action == 'unsub') {
+                        $('.msgs').append('<p class="bg-primary">You have been successfully removed from the Say Socket database</p>');
+                        $('.unsub-info').hide();
                     }
                 } else if (response.errors) {
                     $.each(response.errors, function(i, msg) {

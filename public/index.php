@@ -108,7 +108,7 @@ require_once '../inc/config.inc';
                 </div>
                 <div class="row result">
                     <div class="col-xs-12">
-                        <input id="cmd" type="text" class="form-control readonly" placeholder="Command" />
+                        <input id="cmd" type="text" class="form-control" readonly placeholder="Command" />
                         <button class="btn btn-primary form-control select-ctrl" select-target="#cmd">Select Command</button>
                     </div>
                 </div>

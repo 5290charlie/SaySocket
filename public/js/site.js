@@ -9,10 +9,6 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('keydown', 'input.readonly', function() {
-        return false;
-    });
-
     $('form').on('submit', function() {
         $('.msgs').empty();
 

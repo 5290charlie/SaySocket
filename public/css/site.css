@@ -33,14 +33,14 @@ body {
   .result.active {
     max-height: 300px; }
 
-.form-control {
+.form-control, .form-control[readonly] {
   margin: 10px auto;
   font-size: 20px;
   height: auto;
   text-align: center;
   background-color: #333333;
   color: #dedede; }
-  .form-control.btn {
+  .form-control.btn, .form-control[readonly].btn {
     display: block; }
 
 .instructions {

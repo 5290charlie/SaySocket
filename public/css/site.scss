@@ -46,7 +46,7 @@ body {
   }
 }
 
-.form-control {
+.form-control, .form-control[readonly] {
   margin: 10px auto;
   font-size: 20px;
   height: auto;

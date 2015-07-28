@@ -107,7 +107,7 @@ if (count($result) > 0) {
                         <form method="post" data-action="unsub">
                             <div class="form-group">
                                 <label class="sr-only" for="email">Email address</label>
-                                <input id="email" type="email" name="email" class="form-control form-input readonly" value="<?php echo $email; ?>"/>
+                                <input id="email" type="email" name="email" class="form-control form-input" readonly value="<?php echo $email; ?>"/>
                             </div>
                             <button type="submit" class="btn btn-success form-control">Confirm</button>
                         </form>

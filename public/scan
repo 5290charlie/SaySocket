@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup {{BINARY_LOCATION}} {{MONITOR}} {{SILENT_SUFFIX}}

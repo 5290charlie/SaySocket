@@ -3,7 +3,7 @@ require_once '../inc/config.inc';
 
 $dbc = new DatabaseConnection();
 $user_hash = $dbc->real_escape_string($_GET['h']);
-$query = "SELECT email FROM " . DB_TABLE . " WHERE hash='$user_hash'";
+$query = "SELECT email FROM " . DB_TABLE_SIGNUP . " WHERE hash='$user_hash'";
 $result = $dbc->getArray($query);
 $email = 'Email';
 

@@ -71,6 +71,9 @@ require_once '../inc/config.inc';
                     <div class="col-xs-12">
                         <h1>Say Socket <span class="total-wrap"><span class="total"></span> trolled!</span></h1>
                     </div>
+                    <div class="col-xs-12">
+                        <p><a target="_blank" href="https://github.com/5290charlie/SaySocket">GitHub</a></p>
+                    </div>
                 </div>
             </div>
         </header>

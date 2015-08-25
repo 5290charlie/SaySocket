@@ -1,0 +1,41 @@
+
+REMOVE=$DIR_MAIN:$LAUNCH_PLIST:$PING_DIR:$INSTALLER:$REMOVER
+
+launchctl unload $LAUNCH_PLIST
+
+ping=`ps aux | grep "$PING_BIN $PING_MON" | grep -v 'grep' | awk '{print $2}'`
+monitor=`ps aux | grep "$BINARY $MONITOR" | grep -v 'grep' | awk '{print $2}'`
+
+PROCESSES=$ping:$monitor
+
+for pid in ${PROCESSES//:/ }; do
+    while true; do
+        read -p "Kill process (pid=$pid)? (y/n) " yn
+        case $yn in
+            [Yy]* ) kill $pid; break;;
+            [Nn]* ) break;;
+            * ) echo "Please answer yes or no. (y/n)";;
+        esac
+    done
+done
+
+for path in ${REMOVE//:/ }; do
+    if [[ -e $path ]]; then
+        while true; do
+            if [[ -d $path ]]; then
+                type="directory"
+            else
+                type="file"
+            fi
+
+            read -p "Remove $type: $path? (y/n) " yn
+            case $yn in
+                [Yy]* ) rm -rf $path; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no. (y/n)";;
+            esac
+        done
+    fi
+done
+
+echo "SS removal complete."

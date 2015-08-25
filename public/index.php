@@ -1,5 +1,7 @@
 <?php
 require_once '../inc/config.inc';
+
+global $ss_config, $b64_config;
 ?>
 
 <!doctype html>
@@ -149,10 +151,7 @@ require_once '../inc/config.inc';
                                 </li>
                                 <li>
                                     If your connection is successful, you should see this welcome message along with the say prompt:
-<pre>Welcome to the Say Socket!
-Type anything to say it through the socket.
-To quit, type 'quit'. To shut down the server type 'shutdown'.
-say> </pre>
+                                    <pre><?php echo $b64_config['STR_WELCOME_MSG']; ?></pre>
                                 </li>
                                 <li>
                                     Now anything you type will be spoken by their computer!
@@ -163,6 +162,23 @@ say> </pre>
                                     Instead of entering something silly for their computer to say, use the custom "volume" command
                                     <p class="extra">The "volume" command will accept integer [0-9] as the volume level</p>
                                     <pre> say> volume 9</pre>
+                                </li>
+                                <li>
+                                    <h3>You got caught and they're pissed.<br />Good thing it comes with an uninstall script!</h3>
+                                    To remove SaySocket completely from their system run:
+                                    <pre> $ ss_remove</pre>
+                                    <p class="extra">The initial install will create "<?php echo $ss_config['FILE_INSTALLER']; ?>" and "<?php echo $ss_config['FILE_REMOVER']; ?>" inside of <?php echo $ss_config['DIR_LOCAL_BIN']; ?></p>
+                                    <p class="extra">The "<?php echo $ss_config['FILE_INSTALLER']; ?>" script is a copy of the original install script</p>
+                                    The removal process should look something like this:
+                                    <p class="extra">You MUST answer "y" or "n" to all questions asked during removal</p>
+<pre>Kill process (pid=1234)? (y/n) y
+Kill process (pid=4321)? (y/n) y
+Remove directory: /Users/username/<?php echo $ss_config['DIR_MAIN']; ?>? (y/n) y
+Remove file: /Users/username/<?php echo $ss_config['DIR_LAUNCH_AGENTS'] . '/' . $ss_config['FILE_LAUNCH_PLIST']; ?>? (y/n) y
+Remove directory: <?php echo $ss_config['DIR_PING']; ?>? (y/n) y
+Remove file: <?php echo $ss_config['DIR_LOCAL_BIN'] . '/' . $ss_config['FILE_INSTALLER']; ?>? (y/n) y
+Remove file: <?php echo $ss_config['DIR_LOCAL_BIN'] . '/' . $ss_config['FILE_REMOVER']; ?>? (y/n) y
+SS removal complete.</pre>
                                 </li>
                             </ol>
                         </div>
@@ -178,9 +194,8 @@ say> </pre>
                         <p>*By signing up with Say Socket, you are allowing email notifications when your installed socket is opened.</p>
                         <p>Your email will never be given or shown anywhere outside the Say Socket signup database</p>
                         <p>USE AT YOUR OWN RISK! Make sure to only prank close friends that can take a joke!</p>
-                        <p>No rm or delete commands exist within this script (with the exception of the command above which removes itself after downloading and running).</p>
                         <p>Only applicable within a simple local network setting (without complex port forwarding)</p>
-                        <p>This will append a line to ~/.bash_profile so it restarts with each new terminal session</p>
+                        <p>This will create a launchctl .plist file in ~/<?php echo $ss_config['DIR_LAUNCH_AGENTS']; ?> causing it to restart on login</p>
                     </div>
                 </div>
             </div>

@@ -83,7 +83,7 @@ $b64_config = array(
     'STR_WELCOME_MSG' =>
         "\nWelcome to the Say Socket!\n" .
         "Type anything to say it through the socket.\n" .
-        "To quit, type 'quit'. To shut down the server type 'shutdown'.\n",
+        "To quit, type 'quit', 'exit', or 'shutdown'.\n",
 );
 
 require_once 'settings.inc';

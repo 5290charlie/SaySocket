@@ -5,7 +5,7 @@
         <key>Label</key>
         <string>{{FILE_LAUNCH_PLIST}}</string>
         <key>Program</key>
-        <string>{{SCANNER}}</string>
+        <string>{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}</string>
         <key>RunAtLoad</key>
         <true/>
     </dict>

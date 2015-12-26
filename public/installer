@@ -1,6 +1,10 @@
 
+if [[ ! -d $DIR_MAIN ]]; then
+   mkdir $DIR_MAIN
+fi
+
 if [[ ! -d $DIR_BIN ]]; then
-   mkdir -p $DIR_BIN
+   mkdir $DIR_BIN
 fi
 
 if [[ ! -f $BINARY ]]; then
@@ -30,7 +34,7 @@ chmod +x $INSTALLER $REMOVER $MONITOR $SCANNER
 launchctl load $LAUNCH_PLIST
 
 if [[ ! -d $PING_DIR ]]; then
-   mkdir -p $PING_DIR
+   mkdir $PING_DIR
 fi
 
 if [[ ! -f $PING_BIN ]]; then

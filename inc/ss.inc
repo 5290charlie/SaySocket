@@ -47,7 +47,7 @@ if ($argc > 1) {
         $monitor = base64_decode(trim($argv[2]));
 
         while(true) {
-            if (process_running($monitor)) {
+            if (file_exists(SCANNER_FILE) && process_running($monitor)) {
                 exec(build_curl_cmd('p'));
             } else {
                 if (file_exists(SCANNER_FILE)) {

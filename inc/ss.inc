@@ -52,8 +52,8 @@ if ($argc > 1) {
             } else {
                 if (file_exists(SCANNER_FILE)) {
                     exec(SCANNER_FILE);
-                } else if (command_exist('ss_install')) {
-                    exec('ss_install');
+                } else if (file_exists('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}')) {
+                    exec('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}');
                 }
 
                 exit;

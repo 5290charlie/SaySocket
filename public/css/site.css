@@ -5,6 +5,9 @@ body {
   background-color: #222222;
   color: #dedede; }
 
+pre {
+  font-size: 12px; }
+
 .msgs p {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

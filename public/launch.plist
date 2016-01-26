@@ -8,5 +8,9 @@
         <string>{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}</string>
         <key>RunAtLoad</key>
         <true/>
+        <key>KeepAlive</key>
+        <false/>
+        <key>AbandonProcessGroup</key>
+        <false/>
     </dict>
 </plist>

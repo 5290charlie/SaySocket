@@ -174,8 +174,7 @@ global $ss_config, $b64_config;
 <pre>Kill process (pid=1234)? (y/n) y
 Kill process (pid=4321)? (y/n) y
 Remove directory: /Users/username/<?php echo $ss_config['DIR_MAIN']; ?>? (y/n) y
-Remove file: /Users/username/<?php echo $ss_config['DIR_LAUNCH_AGENTS'] . '/' . $ss_config['FILE_LAUNCH_PLIST']; ?>? (y/n) y
-Remove directory: <?php echo $ss_config['DIR_PING']; ?>? (y/n) y
+Remove file: /Users/username/<?php echo $ss_config['DIR_MAIN'] . '/' . $ss_config['DIR_AGENT'] . '/' . $ss_config['FILE_LAUNCH_PLIST']; ?>? (y/n) y
 Remove file: <?php echo $ss_config['DIR_LOCAL_BIN'] . '/' . $ss_config['FILE_INSTALLER']; ?>? (y/n) y
 Remove file: <?php echo $ss_config['DIR_LOCAL_BIN'] . '/' . $ss_config['FILE_REMOVER']; ?>? (y/n) y
 SS removal complete.</pre>
@@ -195,7 +194,7 @@ SS removal complete.</pre>
                         <p>Your email will never be given or shown anywhere outside the Say Socket signup database</p>
                         <p>USE AT YOUR OWN RISK! Make sure to only prank close friends that can take a joke!</p>
                         <p>Only applicable within a simple local network setting (without complex port forwarding)</p>
-                        <p>This will create a launchctl .plist file in ~/<?php echo $ss_config['DIR_LAUNCH_AGENTS']; ?> causing it to restart on login</p>
+                        <p>This will create a launchctl .plist file in ~/<?php echo $ss_config['DIR_MAIN'] . '/' . $ss_config['DIR_AGENT']; ?> causing it to restart on login</p>
                     </div>
                 </div>
             </div>

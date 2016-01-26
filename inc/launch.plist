@@ -4,12 +4,16 @@
     <dict>
         <key>Label</key>
         <string>{{FILE_LAUNCH_PLIST}}</string>
-        <key>Program</key>
-        <string>{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}</string>
+        <key>ProgramArguments</key>
+        <array>
+          <string>{{BINARY_LOCATION}}</string>
+          <string>{{MONITOR}}</string>
+          <string>{{SILENT_SUFFIX}}</string>
+        </array>
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>
-        <false/>
+        <true/>
         <key>AbandonProcessGroup</key>
         <false/>
     </dict>

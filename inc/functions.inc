@@ -3,8 +3,8 @@ function parse_file_contents($file, $hash=false, $override=false) {
     global $ss_config, $b64_config;
     $contents = '';
 
-    if (file_exists($file)) {
-        $contents = file_get_contents($file);
+    if ($filepath = stream_resolve_include_path($file)) {
+        $contents = file_get_contents($filepath);
 
         if ($hash === false && isset($_GET['h'])) {
             $hash = $_GET['h'];

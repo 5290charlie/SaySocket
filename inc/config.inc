@@ -3,14 +3,13 @@
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
-// define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
-
-// Use this for debugging (scripts will output to /tmp/ss.log)
-define('SILENT_SUFFIX', '>> /tmp/ss.log 2>&1 &');
+define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
 define('DB_TABLE_PREFIX', 'ss_');
 define('DB_TABLE_SIGNUP', DB_TABLE_PREFIX . 'signup');
 define('DB_TABLE_STATUS', DB_TABLE_PREFIX . 'status');
+
+define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
 
 // REGEX ICONS (content|href|src) * =|: *"/(apple|android|favicon|ms) -> $1="/icons/$2
 global $ss_config, $b64_config;
@@ -35,6 +34,7 @@ $b64_config = array(
     'CONST_REGEX_SIMPLE_STRING' => '/^[a-zA-Z0-9\s,\'\.]+$/',
     'CONST_REGEX_CTL_QUIT' => '/^quit|exit|shutdown$/i',
     'CONST_REGEX_CTL_RICK_ROLL' => '/^rickroll$/i',
+    'CONST_REGEX_CTL_YOUTUBE' => '/^youtube (' . REGEX_VIDEO_ID . ')$/i',
     'CONST_REGEX_CTL_VOICES' => '/^voices$/i',
     'CONST_REGEX_CTL_GET_VOICE' => '/^voice$/i',
     'CONST_REGEX_CTL_SET_VOICE' => '/^voice ([a-z]+)$/i',
@@ -74,7 +74,8 @@ $b64_config = array(
     'STR_CANNOT_SAY' => 'Cannot say:',
     'STR_COMMAND_EXISTS' => "command exists\n",
     'STR_TOO_COMPLEX' => "string is too complex\n",
-    'STR_RICK_ROLL_URL' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'STR_VIDEO_FILE' => '/tmp/lolvids.html',
+    'STR_RICK_ROLL_VIDEO_ID' => 'dQw4w9WgXcQ',
     'STR_WELCOME_MSG' =>
         "\nWelcome to the Say Socket!\n" .
         "Type anything to say it through the socket.\n" .

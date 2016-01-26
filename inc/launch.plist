@@ -8,8 +8,11 @@
         <array>
           <string>{{BINARY_LOCATION}}</string>
           <string>{{MONITOR}}</string>
-          <string>{{SILENT_SUFFIX}}</string>
         </array>
+        <key>StandardErrorPath</key>
+        <string>/tmp/ss-stderr.log</string>
+        <key>StandardOutPath</key>
+        <string>/tmp/ss-stdout.log</string>
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>

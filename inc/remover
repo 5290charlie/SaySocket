@@ -1,14 +1,10 @@
 
 REMOVE=$DIR_MAIN:$INSTALLER:$REMOVER
 
-launchctl unload $LAUNCH_PLIST
-
-monitor=`ps aux | grep "$BINARY $MONITOR" | grep -v 'grep' | awk '{print $2}'`
-
 while true; do
-    read -p "Kill process (pid=$monitor)? (y/n) " yn
+    read -p "Unload launch agent? (y/n) " yn
     case $yn in
-        [Yy]* ) kill $monitor; break;;
+        [Yy]* ) launchctl unload $LAUNCH_PLIST; break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no. (y/n)";;
     esac

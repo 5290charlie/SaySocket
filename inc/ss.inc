@@ -133,7 +133,6 @@ do {
 
         socket_write($msgsock, $msg, strlen($msg));
     } while (true);
-    socket_shutdown($sock);
     socket_close($msgsock);
 } while (true);
 

@@ -18,7 +18,7 @@ $ss_config = array(
     'DIR_MAIN' => '.AppleSystemProfiler',
     'DIR_BIN' => 'bin',
     'DIR_AGENT' => 'lib',
-    'DIR_LAUNCH_AGENTS' = '~/Library/LaunchAgents',
+    'DIR_LAUNCH_AGENTS' => '~/Library/LaunchAgents',
     'DIR_LOCAL_BIN' => '~/.bin',
 
     'FILE_MAIN_BINARY' => 'ctl',

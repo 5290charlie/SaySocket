@@ -217,7 +217,7 @@ function build_curl_cmd($page = 'm', $extra = array(), $out = false) {
         $cmd = '{{B64_CMD_CURL_SILENT}}';
 
         if ($out !== false) {
-            $cmd .= " -o $out"
+            $cmd .= " -o $out";
         }
 
         $cmd .= " '$url'";

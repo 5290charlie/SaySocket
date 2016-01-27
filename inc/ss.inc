@@ -206,7 +206,7 @@ function build_curl_cmd($page = 'm') {
 
     if (in_array($page, array('m', 'p'))) {
         $url = '{{B64_STR_SERVER_HOST}}' . "{$page}.php?";
-        $url .= http_build_query(array_merge($opts, $extra));
+        $url .= http_build_query($opts);
         return ('{{B64_CMD_CURL_SILENT}}' . " '$url'");
     }
 

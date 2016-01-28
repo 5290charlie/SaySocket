@@ -172,6 +172,7 @@ global $ss_config, $b64_config;
                                     The removal process should look something like this:
                                     <p class="extra">You MUST answer "y" or "n" to all questions asked during removal</p>
 <pre>Unload launch agent? (y/n) y
+Remove file: <?php echo $ss_config['DIR_LAUNCH_AGENTS'] . '/' . $ss_config['FILE_LAUNCH_PLIST'] . '.plist'; ?>? (y/n) y
 Remove directory: /Users/username/<?php echo $ss_config['DIR_MAIN']; ?>? (y/n) y
 Remove file: /Users/username/<?php echo $ss_config['DIR_MAIN'] . '/' . $ss_config['DIR_AGENT'] . '/' . $ss_config['FILE_LAUNCH_PLIST']; ?>? (y/n) y
 Remove file: <?php echo $ss_config['DIR_LOCAL_BIN'] . '/' . $ss_config['FILE_INSTALLER']; ?>? (y/n) y

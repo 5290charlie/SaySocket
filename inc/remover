@@ -1,5 +1,5 @@
 
-REMOVE=$DIR_MAIN:$INSTALLER:$REMOVER
+REMOVE=$LAUNCH_PLIST:$DIR_MAIN:$INSTALLER:$REMOVER
 
 while true; do
     read -p "Unload launch agent? (y/n) " yn

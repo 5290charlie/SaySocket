@@ -48,31 +48,31 @@ global $ss_config, $b64_config;
             ga('send', 'pageview');
         </script>
 
+        <div class="scrapers">
+          <div style="scraper left">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- SS Skyscraper -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:600px"
+                 data-ad-client="ca-pub-1152878338835253"
+                 data-ad-slot="5073858524"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+          <div style="scraper right">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- SS Skyscraper -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:600px"
+                 data-ad-client="ca-pub-1152878338835253"
+                 data-ad-slot="5073858524"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        </div>
         <section class="ads">
-            <div class="scrapers">
-              <div style="scraper left">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- SS Skyscraper -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:600px"
-                     data-ad-client="ca-pub-1152878338835253"
-                     data-ad-slot="5073858524"></ins>
-                <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-              </div>
-              <div style="scraper right">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- SS Skyscraper -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:600px"
-                     data-ad-client="ca-pub-1152878338835253"
-                     data-ad-slot="5073858524"></ins>
-                <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-              </div>
-            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">

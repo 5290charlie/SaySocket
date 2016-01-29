@@ -13,10 +13,8 @@ pre {
   font-size: 12px;
 }
 
-.ads {
-  .scrapers {
-    display: none;
-  }
+.scrapers {
+  display: none;
 }
 
 .msgs {
@@ -116,27 +114,25 @@ footer {
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1350px) {
-  .ads {
-    .scrapers {
-      display: block;
+  .scrapers {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block;
 
-      .scraper {
-        position: absolute;
-        top: 5px;
-        width: 300px;
-        height: 600px;
+    .scraper {
+      position: absolute;
+      top: 5px;
+      width: 300px;
+      height: 600px;
 
-        &.left {
-          left: 5px;
-        }
+      &.left {
+        left: 5px;
+      }
 
-        &.right {
-          right: 5px;
-        }
+      &.right {
+        right: 5px;
       }
     }
-  }
-  .container {
-    max-width: 750px;
   }
 }

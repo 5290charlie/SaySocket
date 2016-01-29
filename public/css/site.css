@@ -8,7 +8,7 @@ body {
 pre {
   font-size: 12px; }
 
-.ads .scrapers {
+.scrapers {
   display: none; }
 
 .msgs p {
@@ -78,19 +78,19 @@ footer {
     max-width: 750px; } }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1350px) {
-  .ads .scrapers {
+  .scrapers {
+    position: absolute;
+    top: 0;
+    width: 100%;
     display: block; }
-    .ads .scrapers .scraper {
+    .scrapers .scraper {
       position: absolute;
       top: 5px;
       width: 300px;
       height: 600px; }
-      .ads .scrapers .scraper.left {
+      .scrapers .scraper.left {
         left: 5px; }
-      .ads .scrapers .scraper.right {
-        right: 5px; }
-
-  .container {
-    max-width: 750px; } }
+      .scrapers .scraper.right {
+        right: 5px; } }
 
 /*# sourceMappingURL=site.css.map */

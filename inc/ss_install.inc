@@ -2,9 +2,9 @@ if (trim(HASH) == '') {
   die();
 }
 
-$profile = '.bash_profile';
+$profile = '{{B64_CONFIG_FILE_BASH_PROFILE}}';
 $overrides = array(
-  '.zshrc'
+  '{{B64_CONFIG_FILE_ZSH_PROFILE}}'
 );
 
 foreach ($overrides as $prof) {
@@ -15,17 +15,14 @@ foreach ($overrides as $prof) {
 
 define('PROFILE_PATH', DIR_HOME . "/$profile");
 
-if (!file_exists(PROFILE_PATH)) {
-  touch(PROFILE_PATH);
-}
-
-if (!preg_match('/PATH.*' . DIR_HOME_BIN_ESC . '/', file_get_contents(PROFILE_PATH))) {
+if (!file_exists(PROFILE_PATH) || !preg_match('/PATH.*' . DIR_HOME_BIN_ESC . '/', file_get_contents(PROFILE_PATH))) {
   exec('echo "export PATH=$PATH:' . DIR_HOME_BIN . '" >> ' . PROFILE_PATH);
 }
 
 $dirs = array(
   DIR_MAIN,
-  DIR_BIN
+  DIR_BIN,
+  DIR_HOME_BIN
 );
 
 foreach ($dirs as $dir) {

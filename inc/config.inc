@@ -34,7 +34,8 @@ $ss_config = array(
     'FILE_INSTALLER' => 'ss_install',
     'FILE_REMOVER' => 'ss_remove',
     'FILE_BASH_PROFILE' => '.bash_profile',
-    'FILE_ZSH_PROFILE' => '.zshrc'
+    'FILE_ZSH_PROFILE' => '.zshrc',
+    'FILE_TEMP_INSTALLER' => '/tmp/si' . substr(md5(__FILE__), 0, 8),
 );
 
 $b64_config = array(

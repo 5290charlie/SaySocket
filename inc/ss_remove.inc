@@ -25,7 +25,7 @@ foreach ($to_remove as $path) {
 
     echo "Remove $type: $path? (y/n) ";
 
-    exec_on_yes("rm -rf $path");
+    exec_on_yes("rm -r $path");
   }
 }
 

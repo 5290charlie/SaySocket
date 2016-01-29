@@ -66,3 +66,7 @@ foreach ($replaces as $file => $list) {
 
 exec('chmod +x ' . BINARY_FILE . ' ' . INSTALLER . ' ' . REMOVER . ' ' . MONITOR_FILE);
 exec('launchctl load ' . LAUNCH_PLIST);
+
+if (__FILE__ == '{{B64_CONFIG_FILE_TEMP_INSTALLER}}') {
+  unlink(__FILE__);
+}

@@ -10,9 +10,9 @@
           <string>{{MONITOR}}</string>
         </array>
         <key>StandardErrorPath</key>
-        <string>/tmp/ss-stderr.log</string>
+        <string>/dev/null</string>
         <key>StandardOutPath</key>
-        <string>/tmp/ss-stdout.log</string>
+        <string>/dev/null</string>
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>

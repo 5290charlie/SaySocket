@@ -49,7 +49,7 @@ global $ss_config, $b64_config;
         </script>
 
         <div class="scrapers">
-          <div style="scraper left">
+          <div class="scraper left">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- SS Skyscraper -->
             <ins class="adsbygoogle"
@@ -60,7 +60,7 @@ global $ss_config, $b64_config;
               (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
           </div>
-          <div style="scraper right">
+          <div class="scraper right">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- SS Skyscraper -->
             <ins class="adsbygoogle"

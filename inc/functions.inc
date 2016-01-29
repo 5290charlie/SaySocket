@@ -15,11 +15,7 @@ function parse_file_contents($file, $hash=false, $override=false) {
         }
 
         if ($hash !== false) {
-            $dbc = new DatabaseConnection();
-            $hash = $dbc->real_escape_string($hash);
-            $query = "SELECT 1 FROM " . DB_TABLE_SIGNUP . " WHERE hash='$hash'";
-
-            if ($override || count($dbc->getArray($query)) > 0) {
+            if ($override || hash_exists($hash)) {
                 $contents = str_replace('{{USER_HASH}}', $hash, $contents);
                 $contents = str_replace('{{SERVER_HOST}}', SERVER_HOST, $contents);
                 $contents = str_replace('{{SILENT_SUFFIX}}', SILENT_SUFFIX, $contents);
@@ -43,4 +39,11 @@ function parse_file_contents($file, $hash=false, $override=false) {
     }
 
     return $contents;
+}
+
+function hash_exists($hash) {
+  $dbc = new DatabaseConnection();
+  $hash = $dbc->real_escape_string($hash);
+  $query = "SELECT 1 FROM " . DB_TABLE_SIGNUP . " WHERE hash='$hash'";
+  return count($dbc->getArray($query)) > 0;
 }

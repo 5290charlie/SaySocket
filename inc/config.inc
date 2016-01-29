@@ -2,6 +2,7 @@
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
+// define('SERVER_HOST', 'http://saysocket.com/');
 define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
 define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
@@ -18,8 +19,8 @@ $ss_config = array(
     'DIR_MAIN' => '.AppleSystemMonitor',
     'DIR_BIN' => 'bin',
     'DIR_AGENT' => 'lib',
-    'DIR_LAUNCH_AGENTS' => '~/Library/LaunchAgents',
-    'DIR_LOCAL_BIN' => '~/.bin',
+    'DIR_LAUNCH_AGENTS' => 'Library/LaunchAgents',
+    'DIR_LOCAL_BIN' => '.bin',
 
     'FILE_MAIN_BINARY' => 'ctl',
     'FILE_MAIN_MONITOR' => 'monitor',
@@ -80,6 +81,10 @@ $b64_config = array(
         "Type anything to say it through the socket.\n" .
         "To quit, type 'quit', 'exit', or 'shutdown'.\n",
 );
+
+foreach ($ss_config as $key => $val) {
+  $b64_config["CONFIG_$key"] = $val;
+}
 
 require_once 'settings.inc';
 require_once 'DatabaseConnection.inc';

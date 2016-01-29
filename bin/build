@@ -1,0 +1,25 @@
+#!/usr/bin/php
+<?php
+$dir_inc = __DIR__ . '/../inc/';
+
+$dec_bin = "#!{{FILE_PHP_BINARY}}\n";
+$vars = file_get_contents($dir_inc . 'vars.inc') . "\n";
+$installer = file_get_contents($dir_inc . 'ss_install.inc');
+$remover = file_get_contents($dir_inc . 'ss_remove.inc');
+
+file_put_contents($dir_inc . 'installer.inc', $vars . $installer);
+file_put_contents($dir_inc . 'remover.inc', $vars . $remover);
+
+$punify_files = array(
+  'installer.inc',
+  'remover.inc',
+  'ss.inc'
+);
+
+foreach ($punify_files as $file) {
+  if ($file != 'ss.inc') {
+    file_put_contents($dir_inc . $file . '.pny', $dec_bin);
+  }
+
+  exec('punify ' . $dir_inc . $file . ' >> ' . $dir_inc . $file . '.pny');
+}

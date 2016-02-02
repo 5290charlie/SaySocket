@@ -4,6 +4,7 @@ define('REGEX_VALID_VERSION', '{{B64_CONST_REGEX_VALID_VERSION}}');
 define('REGEX_VALID_IP_ADDRESS', '{{B64_CONST_REGEX_VALID_IP_ADDRESS}}');
 define('REGEX_SIMPLE_STRING', '{{B64_CONST_REGEX_SIMPLE_STRING}}');
 define('REGEX_CTL_QUIT', '{{B64_CONST_REGEX_CTL_QUIT}}');
+define('REGEX_CTL_VERSION', '{{B64_CONST_REGEX_CTL_VERSION}}');
 define('REGEX_CTL_UPDATE', '{{B64_CONST_REGEX_CTL_UPDATE}}');
 define('REGEX_CTL_RICK_ROLL', '{{B64_CONST_REGEX_CTL_RICK_ROLL}}');
 define('REGEX_CTL_VOICES', '{{B64_CONST_REGEX_CTL_VOICES}}');
@@ -75,7 +76,7 @@ do {
         break;
     }
 
-    $msg = '{{B64_STR_WELCOME_MSG}}' . PROMPT;
+    $msg = '{{B64_STR_WELCOME_MSG}}' . '{{B64_STR_VERSION_MSG}}' . PROMPT;
     socket_write($msgsock, $msg, strlen($msg));
 
     do {

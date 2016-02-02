@@ -7,6 +7,7 @@ require_once 'functions.inc';
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 // define('SERVER_HOST', 'http://saysocket.com/');
+define('SS_VERSION', '1.1.0');
 define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
 define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
@@ -15,6 +16,7 @@ define('DB_TABLE_SIGNUP', DB_TABLE_PREFIX . 'signup');
 define('DB_TABLE_STATUS', DB_TABLE_PREFIX . 'status');
 
 define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
+define('REGEX_VALID_VERSION', '/([0-9]+\.?)+/');
 define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");
 
 
@@ -22,6 +24,7 @@ define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[
 global $ss_config, $b64_config;
 
 $ss_config = array(
+    'VERSION' => SS_VERSION,
     'DIR_MAIN' => '.AppleSystemMonitor',
     'DIR_BIN' => 'bin',
     'DIR_AGENT' => 'lib',
@@ -77,6 +80,7 @@ $b64_config = array(
     'OPT_IP' => 'ip',
     'OPT_PORT' => 'port',
     'OPT_HASH' => 'h',
+    'OPT_VERSION' => 'v',
 
     'STR_SERVER_HOST' => SERVER_HOST,
     'STR_DEFAULT_VOICE' => 'alex',

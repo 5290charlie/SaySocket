@@ -95,7 +95,7 @@ do {
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
             $msg .= "CURRENT SS_VERSION = " . SS_VERSION . "\n";
             $cmd = build_curl_cmd('v');
-            $msg .= "CMD = $cmd\n"
+            $msg .= "CMD = $cmd\n";
             $msg .= "Server Says: '" . exec($cmd) . "'\n";
             // exec('{{B64_CMD_UPDATE}}');
             // die();

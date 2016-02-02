@@ -44,9 +44,11 @@ $ss_config = array(
 );
 
 $b64_config = array(
-    'CONST_REGEX_VALID_IP_ADDRESS' => '/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/',
+    'CONST_REGEX_VALID_VERSION' => REGEX_VALID_VERSION,
+    'CONST_REGEX_VALID_IP_ADDRESS' => REGEX_VALID_IP_ADDRESS,
     'CONST_REGEX_SIMPLE_STRING' => '/^[a-zA-Z0-9\s,\'\.]+$/',
     'CONST_REGEX_CTL_QUIT' => '/^quit|exit|shutdown$/i',
+    'CONST_REGEX_CTL_VERSION' => '/^version$/i',
     'CONST_REGEX_CTL_UPDATE' => '/^update$/i',
     'CONST_REGEX_CTL_RICK_ROLL' => '/^rickroll$/i',
     'CONST_REGEX_CTL_VOICES' => '/^voices$/i',

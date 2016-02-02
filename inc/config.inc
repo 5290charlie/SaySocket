@@ -94,8 +94,8 @@ $b64_config = array(
     'STR_COMMAND_EXISTS' => "command exists\n",
     'STR_TOO_COMPLEX' => "string is too complex\n",
     'STR_RICK_ROLL_URL' => 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
-    'STR_WELCOME_MSG' => (stream_resolve_include_path('welcome.msg')) ? file_get_contents(stream_resolve_include_path('welcome.msg')) : file_get_contents(stream_resolve_include_path('default.welcome.msg'))
-    'STR_VERSION_MSG' => '*** (v ' . SS_VERSION . ") ***\n";
+    'STR_WELCOME_MSG' => (stream_resolve_include_path('welcome.msg')) ? file_get_contents(stream_resolve_include_path('welcome.msg')) : file_get_contents(stream_resolve_include_path('default.welcome.msg')),
+    'STR_VERSION_MSG' => '*** (v ' . SS_VERSION . ") ***\n",
 );
 
 foreach ($ss_config as $key => $val) {

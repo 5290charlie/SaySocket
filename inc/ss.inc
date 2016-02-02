@@ -76,7 +76,16 @@ do {
         break;
     }
 
-    $msg = '{{B64_STR_WELCOME_MSG}}' . '{{B64_STR_VERSION_MSG}}' . PROMPT;
+    $msg = '{{B64_STR_WELCOME_MSG}}';
+    $ver = exec(build_curl_cmd('v'));
+
+    if (preg_match(REGEX_VALID_VERSION, $ver)) {
+        $sep = '*****************************';
+        $msg .= "\n$sep\nUpdate Available! (v $ver)\nRun 'update' to get the latest version!\n$sep\n\n";
+    }
+
+    $msg .= PROMPT;
+
     socket_write($msgsock, $msg, strlen($msg));
 
     do {

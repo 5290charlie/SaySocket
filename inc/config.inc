@@ -19,6 +19,7 @@ define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
 define('REGEX_VALID_VERSION', '/([0-9]+\.?)+/');
 define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");
 
+define('MSG_SEP', "\n****************************************\n");
 
 // REGEX ICONS (content|href|src) * =|: *"/(apple|android|favicon|ms) -> $1="/icons/$2
 global $ss_config, $b64_config;
@@ -96,6 +97,11 @@ $b64_config = array(
     'STR_RICK_ROLL_URL' => 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
     'STR_WELCOME_MSG' => (stream_resolve_include_path('welcome.msg')) ? file_get_contents(stream_resolve_include_path('welcome.msg')) : file_get_contents(stream_resolve_include_path('default.welcome.msg')),
     'STR_VERSION_MSG' => '*** (v ' . SS_VERSION . ") ***\n",
+    'STR_CURRENT_VERSION' => 'Current version: ',
+    'STR_UPDATE_MSG' => MSG_SEP . "Update Available!" . MSG_SEP,
+    'STR_UPDATING' => 'Updating ',
+    'STR_UPDATE_NOTICE' => "NOTE: Socket will close, should be up again within seconds.\n",
+    'STR_UP_TO_DATE' => "Alrady running latest version. Nothing to update.\n",
 );
 
 foreach ($ss_config as $key => $val) {

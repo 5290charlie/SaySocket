@@ -80,8 +80,7 @@ do {
     $ver = exec(build_curl_cmd('v'));
 
     if (preg_match(REGEX_VALID_VERSION, $ver)) {
-        $sep = '*****************************';
-        $msg .= "\n$sep\nUpdate Available! (v $ver)\nRun 'update' to get the latest version!\n$sep\n\n";
+        $msg .= '{{B64_STR_UPDATE_MSG}}';
     }
 
     $msg .= PROMPT;
@@ -104,23 +103,23 @@ do {
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
         } else if (preg_match(REGEX_CTL_VERSION, $buf)) {
-            $msg .= 'Current version: ' . SS_VERSION . "\n";
+            $msg .= '{{B64_STR_CURRENT_VERSION}}' . SS_VERSION . "\n";
             $ver = exec(build_curl_cmd('v'));
 
             if (preg_match(REGEX_VALID_VERSION, $ver)) {
-                $msg .= "Update available! (version $ver)\nRun 'update' to get this version!\n";
+                $msg .= '{{B64_STR_UPDATE_MSG}}';
             }
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
             $ver = exec(build_curl_cmd('v'));
 
             if (preg_match(REGEX_VALID_VERSION, $ver)) {
-                $msg = "Updating " . SS_VERSION . " -> $ver\n";
-                $msg .= "NOTE: Socket will close, should be up again within seconds.\n";
+                $msg = '{{B64_STR_UPDATING}}' . SS_VERSION . " -> $ver\n";
+                $msg .= '{{B64_STR_UPDATE_NOTICE}}';
                 socket_write($msgsock, $msg, strlen($msg));
                 exec('{{B64_CMD_UPDATE}}');
                 die();
             } else {
-                $msg .= "Alrady running latest version. Nothing to update.\n";
+                $msg .= '{{B64_STR_UP_TO_DATE}}';
             }
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
             set_volume(7);

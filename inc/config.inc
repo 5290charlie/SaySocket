@@ -85,6 +85,8 @@ $b64_config = array(
     'OPT_HASH' => 'h',
     'OPT_VERSION' => 'v',
 
+    'ENV_PATH_VAR' => '$PATH',
+
     'STR_SERVER_HOST' => SERVER_HOST,
     'STR_DEFAULT_VOICE' => 'alex',
     'STR_INTERFACE_PREFIX' => 'en',

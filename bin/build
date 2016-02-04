@@ -7,8 +7,13 @@ $vars = file_get_contents($dir_inc . 'vars.inc') . "\n";
 $installer = file_get_contents($dir_inc . 'ss_install.inc');
 $remover = file_get_contents($dir_inc . 'ss_remove.inc');
 
-file_put_contents($dir_inc . 'installer.inc', $vars . $installer);
-file_put_contents($dir_inc . 'remover.inc', $vars . $remover);
+if (file_put_contents($dir_inc . 'installer.inc', $vars . $installer)) {
+  echo "Built installer: " . $dir_inc . "installer.inc\n";
+}
+
+if (file_put_contents($dir_inc . 'remover.inc', $vars . $remover)) {
+  echo "Built remover: " . $dir_inc . "remover.inc\n";
+}
 
 $punify_files = array(
   'installer.inc',
@@ -24,5 +29,9 @@ foreach ($punify_files as $file) {
     $mode = ' > ';
   }
 
-  exec('punify ' . $dir_inc . $file . $mode . $dir_inc . $file . '.pny');
+  $cmd = 'punify ' . $dir_inc . $file . $mode . $dir_inc . $file . '.pny';
+
+  echo "Punifying with command: '$cmd'\n";
+
+  exec($cmd);
 }

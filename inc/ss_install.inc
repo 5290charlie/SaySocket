@@ -16,7 +16,7 @@ foreach ($overrides as $prof) {
 define('PROFILE_PATH', DIR_HOME . "/$profile");
 
 if (!file_exists(PROFILE_PATH) || !preg_match('/PATH.*' . DIR_HOME_BIN_ESC . '/', file_get_contents(PROFILE_PATH))) {
-  exec('echo "export PATH=\$PATH:' . DIR_HOME_BIN . '" >> ' . PROFILE_PATH);
+  exec('echo "export PATH=\$' . 'PATH:' . DIR_HOME_BIN . '" >> ' . PROFILE_PATH);
 }
 
 $dirs = array(

@@ -8,6 +8,9 @@ body {
 pre {
   font-size: 12px; }
 
+.scrapers {
+  display: none; }
+
 .msgs p {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -73,5 +76,21 @@ footer {
 @media (min-width: 1200px) {
   .container {
     max-width: 750px; } }
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1350px) {
+  .scrapers {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block; }
+    .scrapers .scraper {
+      position: absolute;
+      top: 5px;
+      width: 300px;
+      height: 600px; }
+      .scrapers .scraper.left {
+        left: 5px; }
+      .scrapers .scraper.right {
+        right: 5px; } }
 
 /*# sourceMappingURL=site.css.map */

@@ -127,7 +127,7 @@ do {
         // Buffer matches voices command, list all voices
         } else if (preg_match(REGEX_CTL_VOICES, $buf)) {
             foreach ($voices as $voice) {
-                $msg .= $voice . "\n";
+                $msg .= $voice . "\r\n";
             }
         // Buffer matches get or set voice command
         } else if (preg_match(REGEX_CTL_GET_VOICE, $buf, $arr) || preg_match(REGEX_CTL_SET_VOICE, $buf, $arr)) {
@@ -144,7 +144,7 @@ do {
             }
 
             // Append the current voice to the message
-            $msg .= '{{B64_STR_CURRENT_VOICE}}' . " $current_voice\n";
+            $msg .= '{{B64_STR_CURRENT_VOICE}}' . " $current_voice\r\n";
         // Buffer matches volume control command
         } else if (preg_match(REGEX_CTL_VOLUME, $buf, $arr)) {
             // Validate argument pulled from regex is present and numeric

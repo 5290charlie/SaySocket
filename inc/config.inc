@@ -83,10 +83,10 @@ $b64_config = array(
     'STR_INTERFACE_PREFIX' => 'en',
     'STR_DEFAULT_IP' => '127.0.0.1',
     'STR_CURRENT_VOICE' => 'Current voice is:',
-    'STR_VOICE_HELP' => "Voice does not exist. Use 'voices' command to see a list of available voices\n",
+    'STR_VOICE_HELP' => "Voice does not exist. Use 'voices' command to see a list of available voices\r\n",
     'STR_CANNOT_SAY' => 'Cannot say:',
-    'STR_COMMAND_EXISTS' => "command exists\n",
-    'STR_TOO_COMPLEX' => "string is too complex\n",
+    'STR_COMMAND_EXISTS' => "command exists\r\n",
+    'STR_TOO_COMPLEX' => "string is too complex\r\n",
     'STR_RICK_ROLL_URL' => 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
     'STR_WELCOME_MSG' => (stream_resolve_include_path('welcome.msg')) ? file_get_contents(stream_resolve_include_path('welcome.msg')) : file_get_contents(stream_resolve_include_path('default.welcome.msg'))
 );

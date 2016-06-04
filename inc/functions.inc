@@ -1,4 +1,17 @@
 <?php
+function get_welcome_message() {
+  $message = 'welcome';
+
+  if (stream_resolve_include_path('welcome.msg')) {
+    $message = file_get_contents(stream_resolve_include_path('welcome.msg'));
+  } else {
+    $message = file_get_contents(stream_resolve_include_path('default.welcome.msg'));
+  }
+
+  $message = str_replace("\n", "\r\n", $message);
+
+  return $message;
+}
 function parse_file_contents($file, $hash=false, $override=false) {
     global $ss_config, $b64_config;
     $contents = '';

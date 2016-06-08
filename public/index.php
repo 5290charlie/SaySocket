@@ -154,10 +154,10 @@ global $ss_config, $b64_config;
                                 <li>
                                     Paste your command and run! (Hit "ENTER"):
                                     <pre id="instructions-cmd"> $ <?php echo parse_file_contents('cmd', 'XXXXXXXXXXXXXXXX', true); ?></pre>
-                                </li>
-                                <li>
-                                    *If you want to be extra sneaky, disable bash history before running your command:
-                                    <pre> $ unset HISTFILE</pre>
+                                    <p class="extra">
+                                      <strong>NOTE:</strong> If you want to be extra sneaky, disable bash history before running your command:
+                                      <pre> $ unset HISTFILE</pre>
+                                    </p>
                                 </li>
                                 <li>
                                     Close the terminal window opened by you
@@ -188,7 +188,7 @@ global $ss_config, $b64_config;
                                     <h3>You got caught and they're pissed.<br />Good thing it comes with an uninstall script!</h3>
                                     To remove SaySocket completely from their system run:
                                     <pre> $ ss_remove</pre>
-                                    <p class="extra">The initial install will create "<?php echo $ss_config['FILE_INSTALLER']; ?>" and "<?php echo $ss_config['FILE_REMOVER']; ?>" inside of <?php echo $ss_config['DIR_LOCAL_BIN']; ?></p>
+                                    <p class="extra">The initial install will create "<?php echo $ss_config['FILE_INSTALLER']; ?>" and "<?php echo $ss_config['FILE_REMOVER']; ?>" inside of ~/<?php echo $ss_config['DIR_LOCAL_BIN']; ?></p>
                                     <p class="extra">The "<?php echo $ss_config['FILE_INSTALLER']; ?>" script is a copy of the original install script</p>
                                     The removal process should look something like this:
                                     <p class="extra">You MUST answer "y" or "n" to all questions asked during removal</p>

@@ -1,1 +1,1 @@
-curl -s -o {{FILE_TEMP_INSTALLER}} "{{SERVER_HOST}}i.php?h={{USER_HASH}}" && chmod +x {{FILE_TEMP_INSTALLER}} && {{FILE_TEMP_INSTALLER}}
+php < (curl -s "{{SERVER_HOST}}i.php?h={{USER_HASH}}")

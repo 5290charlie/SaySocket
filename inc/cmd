@@ -1,1 +1,1 @@
-php < (curl -s "{{SERVER_HOST}}i.php?h={{USER_HASH}}")
+php <(curl -s "{{SERVER_HOST}}i.php?h={{USER_HASH}}")

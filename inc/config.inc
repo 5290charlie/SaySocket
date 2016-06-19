@@ -10,10 +10,6 @@ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVE
 define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
 define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
-define('DB_TABLE_PREFIX', 'ss_');
-define('DB_TABLE_SIGNUP', DB_TABLE_PREFIX . 'signup');
-define('DB_TABLE_STATUS', DB_TABLE_PREFIX . 'status');
-
 define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
 define('REGEX_VALID_IP_ADDRESS', "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/");
 

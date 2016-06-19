@@ -9,6 +9,18 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', 'ga-event', function() {
+        var $element = $(this);
+        var category = $element.attr('data-ga-category') || 'Element';
+        var action = $element.attr('data-ga-action') || 'Event';
+        var label = $element.attr('data-ga-label') || 'None';
+        var value = $element.attr('data-ga-value') || 0;
+
+        if (typeof ga === 'function') {
+            ga('send', 'event', category, action, label, value);
+        }
+    });
+
     $('form').on('submit', function() {
         $('.msgs').empty();
 
@@ -80,4 +92,3 @@ function updateTotal() {
         updateTotal();
     }, 5000);
 }
-

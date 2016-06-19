@@ -130,10 +130,9 @@ global $ss_config, $b64_config;
                         <p>
                           <a class="btn btn-primary ga-event" target="_blank" href="https://github.com/5290charlie/SaySocket" data-ga-category="Button" data-ga-action="click" data-ga-label="GitHub">
                             <span class="icon socicon-github"></span>
-                            View on GitHub
+                            GitHub
                           </a>
-                          <div class="fb-share-button" data-href="http://saysocket.com/" data-layout="button_count" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsaysocket.com%2F&amp;src=sdkpreparse">Share</a></div>
-                          
+                          <div class="fb-like" data-href="http://saysocket.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                         </p>
                     </div>
                 </div>

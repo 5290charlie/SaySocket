@@ -19,7 +19,7 @@ global $ss_config, $b64_config;
         <meta property="og:type"               content="website" />
         <meta property="og:title"              content="Say Socket" />
         <meta property="og:description"        content="Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!" />
-        <meta property="og:image"              content="<?php echo SERVER_HOST; ?>/img/saysocket.png" />
+        <meta property="og:image"              content="<?php echo SERVER_HOST; ?>img/saysocket.png" />
 
         <title>Say Socket</title>
 

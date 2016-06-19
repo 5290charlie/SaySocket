@@ -102,7 +102,7 @@ global $ss_config, $b64_config;
                         <p>
                           <a class="btn btn-primary" target="_blank" href="https://github.com/5290charlie/SaySocket">
                             <span class="icon socicon-github"></span>
-                            GitHub
+                            View on GitHub
                           </a>
                         </p>
                     </div>

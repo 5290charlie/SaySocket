@@ -8,6 +8,9 @@ body {
 pre {
   font-size: 12px; }
 
+.glyphicon {
+  top: 3px; }
+
 .scrapers {
   display: none; }
 
@@ -84,7 +87,7 @@ footer {
     width: 100%;
     display: block; }
     .scrapers .scraper {
-      position: absolute;
+      position: fixed;
       top: 5px;
       width: 300px;
       height: 600px; }

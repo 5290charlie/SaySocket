@@ -13,6 +13,10 @@ pre {
   font-size: 12px;
 }
 
+.glyphicon {
+  top: 3px;
+}
+
 .scrapers {
   display: none;
 }
@@ -121,7 +125,7 @@ footer {
     display: block;
 
     .scraper {
-      position: absolute;
+      position: fixed;
       top: 5px;
       width: 300px;
       height: 600px;

@@ -137,7 +137,10 @@ global $ss_config, $b64_config;
                                 <label class="sr-only" for="email">Email address</label>
                                 <input id="email" type="email" name="email" class="form-control form-input" placeholder="Email" />
                             </div>
-                            <button type="submit" class="btn btn-success form-control">Generate</button>
+                            <button type="submit" class="btn btn-success form-control">
+                              <span class="glyphicon glyphicon-cog"></span>
+                              Generate
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -185,12 +188,14 @@ global $ss_config, $b64_config;
                                     <p class="extra">Except special characters and existing shell commands</p>
                                 </li>
                                 <li>
+                                    <hr>
                                     <h3>Are they confused and attempting to mute their sound?<br />Good thing it comes with a volume override!</h3>
                                     Instead of entering something silly for their computer to say, use the custom "volume" command
                                     <p class="extra">The "volume" command will accept integer [0-9] as the volume level</p>
                                     <pre> say> volume 9</pre>
                                 </li>
                                 <li>
+                                    <hr>
                                     <h3>You got caught and they're pissed.<br />Good thing it comes with an uninstall script!</h3>
                                     To remove SaySocket completely from their system run:
                                     <pre> $ ss_remove</pre>

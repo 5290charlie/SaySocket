@@ -38,6 +38,7 @@ if (!file_exists(BINARY_FILE)) {
 copy(__FILE__, INSTALLER);
 
 $downloads = array(
+  'i' => INSTALLER,
   'r' => REMOVER,
   'g' => MONITOR_FILE,
   'l' => LAUNCH_PLIST

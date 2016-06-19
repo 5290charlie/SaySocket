@@ -2,7 +2,6 @@
 <?php
 $dir_inc = __DIR__ . '/../inc/';
 
-$dec_bin = "#!{{FILE_PHP_BINARY}}\n";
 $vars = file_get_contents($dir_inc . 'vars.inc') . "\n";
 $installer = file_get_contents($dir_inc . 'ss_install.inc');
 $remover = file_get_contents($dir_inc . 'ss_remove.inc');
@@ -17,12 +16,7 @@ $punify_files = array(
 );
 
 foreach ($punify_files as $file) {
-  if ($file != 'ss.inc') {
-    file_put_contents($dir_inc . $file . '.pny', $dec_bin);
-    $mode = ' >> ';
-  } else {
-    $mode = ' > ';
-  }
-
-  exec('punify ' . $dir_inc . $file . $mode . $dir_inc . $file . '.pny');
+  $infile = $dir_inc . $file;
+  $outfile = $dir_inc . $file . '.pny';
+  exec("punify $infile $outfile");
 }

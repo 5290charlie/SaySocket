@@ -34,6 +34,7 @@ global $ss_config, $b64_config;
         <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/socicon.css" />
         <link rel="stylesheet" type="text/css" href="css/site.css" />
     </head>
 
@@ -98,7 +99,12 @@ global $ss_config, $b64_config;
                         <h1>Say Socket <span class="total-wrap"><span class="total"></span> trolled!</span></h1>
                     </div>
                     <div class="col-xs-12">
-                        <p><a target="_blank" href="https://github.com/5290charlie/SaySocket">GitHub</a></p>
+                        <p>
+                          <a class="btn btn-primary" target="_blank" href="https://github.com/5290charlie/SaySocket">
+                            <span class="icon socicon-github"></span>
+                            GitHub
+                          </a>
+                        </p>
                     </div>
                 </div>
             </div>

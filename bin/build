@@ -18,5 +18,5 @@ $punify_files = array(
 foreach ($punify_files as $file) {
   $infile = $dir_inc . $file;
   $outfile = $dir_inc . $file . '.pny';
-  exec("punify $infile $outfile");
+  exec("punify $infile > $outfile");
 }

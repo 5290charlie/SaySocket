@@ -176,6 +176,8 @@ function command_exist($cmd) {
 }
 
 function lookup_ip() {
+  return '0.0.0.0';
+  
     for ($i = 0; $i < 10; $i++) {
         $cmd = '{{B64_CMD_IPCONFIG}}' . ' ' . '{{B64_CMD_GETIFADDR}}' . ' ' . '{{B64_STR_INTERFACE_PREFIX}}' . $i;
         $adr = trim(exec($cmd));

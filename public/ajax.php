@@ -68,7 +68,7 @@ try {
             case 'total':
                 $query = 'SELECT SUM(hits) AS total FROM ' . DB_TABLE_SIGNUP;
                 $result = $dbc->getArray($query);
-                $response['total'] = $result[0]['total'];
+                $response['total'] = count($result) > 0 ? $result[0]['total'] : 0;
                 $response['success'] = true;
                 break;
             default:

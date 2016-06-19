@@ -11,6 +11,16 @@ global $ss_config, $b64_config;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+        <meta name="description" content="Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!">
+        <meta name="keywords" content="PHP,OSX,say,socket,say socket,saysocket,text-to-speech,text to speech,troll,funny,stupid,script,prank">
+        <meta name="author" content="Charlie McClung">
+
+        <meta property="og:url"                content="<?php echo SERVER_HOST; ?>" />
+        <meta property="og:type"               content="website" />
+        <meta property="og:title"              content="Say Socket" />
+        <meta property="og:description"        content="Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!" />
+        <meta property="og:image"              content="<?php echo SERVER_HOST; ?>/img/saysocket.png" />
+
         <title>Say Socket</title>
 
         <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">

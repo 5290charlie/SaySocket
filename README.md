@@ -1,5 +1,5 @@
 # SaySocket
-Fuck with your friends.
+Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!
 
 Visit [saysocket.com](http://saysocket.com) to try it now!
 

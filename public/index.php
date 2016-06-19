@@ -15,11 +15,12 @@ global $ss_config, $b64_config;
         <meta name="keywords" content="PHP,OSX,say,socket,say socket,saysocket,text-to-speech,text to speech,troll,funny,stupid,script,prank">
         <meta name="author" content="Charlie McClung">
 
-        <meta property="og:url"                content="<?php echo SERVER_HOST; ?>" />
-        <meta property="og:type"               content="website" />
-        <meta property="og:title"              content="Say Socket" />
-        <meta property="og:description"        content="Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!" />
-        <meta property="og:image"              content="<?php echo SERVER_HOST; ?>img/saysocket.png" />
+        <meta property="fb:app_id" content="1583374385295327" />
+        <meta property="og:url" content="<?php echo SERVER_HOST; ?>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Say Socket" />
+        <meta property="og:description" content="Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, make it speak!" />
+        <meta property="og:image" content="<?php echo SERVER_HOST; ?>img/saysocket.png" />
 
         <title>Say Socket</title>
 
@@ -57,6 +58,23 @@ global $ss_config, $b64_config;
 
             ga('create', 'UA-65431506-1', 'auto');
             ga('send', 'pageview');
+        </script>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '1583374385295327',
+              xfbml      : true,
+              version    : 'v2.6'
+            });
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
         </script>
 
         <div class="scrapers">
@@ -114,6 +132,8 @@ global $ss_config, $b64_config;
                             <span class="icon socicon-github"></span>
                             View on GitHub
                           </a>
+                          <div class="fb-share-button" data-href="http://saysocket.com/" data-layout="button_count" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsaysocket.com%2F&amp;src=sdkpreparse">Share</a></div>
+                          
                         </p>
                     </div>
                 </div>

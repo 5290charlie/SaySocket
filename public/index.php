@@ -106,7 +106,7 @@ global $ss_config, $b64_config;
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>Say Socket <span class="total-wrap"><span class="total"></span> trolled!</span></h1>
+                        <h1>Say Socket <span class="total-wrap"><span class="total"></span> sockets opened</span></h1>
                     </div>
                     <div class="col-xs-12">
                         <p>

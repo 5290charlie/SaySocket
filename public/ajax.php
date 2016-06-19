@@ -26,7 +26,7 @@ try {
                             $response['cmd'] = parse_file_contents('cmd', $result[0]['hash']);
                             $response['hits'] = $result[0]['hits'];
                         } else {
-                            $hash = substr(md5($email . mt_rand()), 0, 16);
+                            $hash = md5($email . mt_rand());
                             $query = "INSERT INTO " . DB_TABLE_SIGNUP . " (email, hash) VALUES ('$email', '$hash')";
 
                             if ($dbc->runQuery($query) > 0) {

@@ -3,19 +3,19 @@ Have friends who own a Mac? Do they leave it unlocked? Give life to their Mac, m
 
 Visit [saysocket.com](http://saysocket.com) to try it now!
 
-###The Pieces
+### The Pieces
 * The `say` command.
   * `say` is a text-to-speech command available on OSX
 * PHP 5
   * PHP 5+ comes pre-installed on recent versions of OSX
 
-###The Goal
+### The Goal
 * Build a service wrapper to access `say` command remotely
 
-###The Reason
+### The Reason
 * It's fucking hilarious
 
-###The Details
+### The Details
 * This was built with little to no design effort. Shit popped into my head, and was added to this project.
 * This project utilizes my other useless PHP project [PHPuny](https://github.com/5290charlie/PHPuny)
 * [PHPuny](https://github.com/5290charlie/PHPuny) is a PHP minifier
@@ -24,7 +24,7 @@ Visit [saysocket.com](http://saysocket.com) to try it now!
 * Obfuscation gets even more ridiculous, all (most) strings are reverse-base64 encoded
   * **Example:** The string `poop` will be represented as `base64_decode('cG9vcA==')`
 
-###The Result
+### The Result
 * The resulting files look like this:
   * __Installer:__
   ```php

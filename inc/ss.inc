@@ -111,9 +111,12 @@ if (!file_exists($ngrok_bin)) {
 }
 
 if (file_exists($ngrok_bin)) {
-  exec("nohup $ngrok_bin tcp " . SS_PORT . " &> /dev/null &");
+    $cmd = "nohup $ngrok_bin tcp " . SS_PORT . " &> /dev/null &";
+    echo "running ngrok: $cmd\n";
+    exec($cmd);
 
   if (wait_for_it('localhost', 4040)) {
+      echo "localhost:4040 is ready\n";
     $ngrok_json = file_get_contents('http://localhost:4040/api/tunnels');
 
     $ngrok_data = json_decode($ngrok_json);
@@ -122,6 +125,8 @@ if (file_exists($ngrok_bin)) {
       $tunnel = $ngrok_data->tunnels[0];
 
       $tcp_url = $tunnel->public_url;
+
+      echo "$tcp_url\n";
 
       if (preg_match("/tcps\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
         if (count($matches) > 2) {
@@ -132,6 +137,8 @@ if (file_exists($ngrok_bin)) {
     }
   }
 }
+
+print_r($opts);
 
 // Execute curl command to hit server and send mail alert that socket is open
 exec(build_curl_cmd('m'));

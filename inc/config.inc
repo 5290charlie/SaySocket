@@ -74,6 +74,10 @@ $b64_config = array(
     'OPT_PORT' => 'port',
     'OPT_HASH' => 'h',
 
+    'STR_NGROK_URL' => 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip',
+    'STR_NGROK_ZIP' => 'ngrok.zip',
+    'STR_NGROK_BIN' => 'ngrok',
+    'STR_NGROK_API' => 'http://localhost:4040/api/tunnels',
     'STR_SERVER_HOST' => SERVER_HOST,
     'STR_DEFAULT_VOICE' => 'alex',
     'STR_INTERFACE_PREFIX' => 'en',

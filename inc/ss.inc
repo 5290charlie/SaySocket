@@ -134,7 +134,7 @@ if (file_exists($ngrok_bin)) {
 
       echo "$tcp_url\n";
 
-      if (preg_match("/tcps\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
+      if (preg_match("/tcp\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
         if (count($matches) > 2) {
             $opts['{{B64_OPT_IP}}'] = $matches[1];
             $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];

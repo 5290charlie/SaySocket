@@ -111,7 +111,7 @@ if (!file_exists($ngrok_bin)) {
 
   file_put_contents($ngrok_zip, fopen($ngrok_url, 'r'));
 
-  exec("unzip $ngrok_zip");
+  exec("unzip $ngrok_zip -d $dir");
 
   unlink($ngrok_zip);
 }

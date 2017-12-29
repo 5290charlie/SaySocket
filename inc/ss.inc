@@ -82,15 +82,16 @@ function wait_for_it($host, $port, $timeout=10) {
   $connection = @fsockopen($host, $port);
 
   while(!is_resource($connection)) {
-    sleep(1);
-
     $timeout--;
 
     if ($timeout <= 0) {
+        echo "TIMEOUT WAITING FOR HOST PORT!!\n";
       return false;
     }
 
     $connection = @fsockopen($host, $port);    
+
+    sleep(1);
   }
 
   if (is_resource($connection)) {
@@ -100,6 +101,37 @@ function wait_for_it($host, $port, $timeout=10) {
   }
 
   return false;
+}
+
+function get_ngrok_tunnel($timeout=10) {
+    if (wait_for_it('localhost', 4040)) {
+        echo "localhost:4040 is ready\n";
+
+        do {
+            $ngrok_json = file_get_contents('http://localhost:4040/api/tunnels');
+
+            $ngrok_data = json_decode($ngrok_json);
+    
+            if (isset($ngrok_data->tunnels) && count($ngrok_data->tunnels) > 0) {
+                return $ngrok_data->tunnels[0];
+            } else {
+                echo "Incomplete data from ngrok\n";
+                var_dump($ngrok_data);
+                $timeout--;
+
+                if ($timeout <= 0) {
+                    return false;
+                }
+
+                sleep(1);
+            }
+        } while(!isset($ngrok_data->tunnels) || count($ngrok_data->tunnels) <= 0);
+      
+    } else {
+        echo "no response from ngrok info on localhost:4040\n";
+    }
+
+    return false;
 }
 
 echo "ngrok bin: $ngrok_bin\n";
@@ -121,37 +153,28 @@ if (file_exists($ngrok_bin)) {
     echo "running ngrok: $cmd\n";
     exec($cmd);
 
-  if (wait_for_it('localhost', 4040)) {
-      echo "localhost:4040 is ready\n";
-    $ngrok_json = file_get_contents('http://localhost:4040/api/tunnels');
+    $tunnel = get_ngrok_tunnel();
 
-    $ngrok_data = json_decode($ngrok_json);
+    if ($tunnel) {
+        $tcp_url = $tunnel->public_url;
+    
+        echo "$tcp_url\n";
 
-    if (isset($ngrok_data->tunnels) && count($ngrok_data->tunnels) > 0) {
-      $tunnel = $ngrok_data->tunnels[0];
-
-      $tcp_url = $tunnel->public_url;
-
-      echo "$tcp_url\n";
-
-      if (preg_match("/tcp\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
-        if (count($matches) > 2) {
-            $opts['{{B64_OPT_IP}}'] = $matches[1];
-            $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];
+        if (preg_match("/tcp\:\/\/([^\:]+)\:([0-9]+)/", $tcp_url, $matches)) {
+            if (count($matches) > 2) {
+                $opts['{{B64_OPT_IP}}'] = $matches[1];
+                $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];
+            } else {
+                echo "Unable to find matching parts from url: $tcp_url\n";
+                var_dump($matches);
+            }
         } else {
-            echo "Unable to find matching parts from url: $tcp_url\n";
-            var_dump($matches);
+            echo "ngrok url doesn't match tcp pattern: $tcp_url\n";
         }
-      } else {
-          echo "ngrok url doesn't match tcp pattern: $tcp_url\n";
-      }
     } else {
-        echo "Incomplete data from ngrok\n";
-        var_dump($ngrok_data);
+        echo "No tunnel info found\n";
     }
-  } else {
-      echo "no response from ngrok info on localhost:4040\n";
-  }
+    
 } else {
     echo "missing ngrok bin\n";
 }

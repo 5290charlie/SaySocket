@@ -102,7 +102,13 @@ function wait_for_it($host, $port, $timeout=10) {
   return false;
 }
 
+echo "ngrok bin: $ngrok_bin\n";
+echo "ngrok zip: $ngrok_zip\n";
+echo "ngrok url: $ngrok_url\n";
+
 if (!file_exists($ngrok_bin)) {
+    echo "$ngrok_bin does not exist, downloading from $ngrok_url\n";
+
   file_put_contents($ngrok_zip, fopen($ngrok_url, 'r'));
 
   exec("unzip $ngrok_zip");
@@ -132,10 +138,22 @@ if (file_exists($ngrok_bin)) {
         if (count($matches) > 2) {
             $opts['{{B64_OPT_IP}}'] = $matches[1];
             $opts['{{B64_OPT_PORT}}'] = (int)$matches[2];
+        } else {
+            echo "Unable to find matching parts from url: $tcp_url\n";
+            var_dump($matches);
         }
+      } else {
+          echo "ngrok url doesn't match tcp pattern: $tcp_url\n";
       }
+    } else {
+        echo "Incomplete data from ngrok\n";
+        var_dump($ngrok_data);
     }
+  } else {
+      echo "no response from ngrok info on localhost:4040\n";
   }
+} else {
+    echo "missing ngrok bin\n";
 }
 
 print_r($opts);

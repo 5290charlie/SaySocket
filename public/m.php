@@ -6,11 +6,7 @@ if (isset($_GET) && isset($_GET['ip']) && isset($_GET['port']) && isset($_GET['h
     $ip = $_GET['ip'];
     $port = $_GET['port'];
 
-    $connection = @fsockopen($ip, $port);
-
-    if (is_resource($connection)) {
-        fclose($connection);
-        
+    if (preg_match(REGEX_VALID_IP_ADDRESS, $ip) && is_numeric($port)) {
         $dbc = new DatabaseConnection();
         $user_hash = $dbc->real_escape_string($_GET['h']);
         $query = "SELECT email FROM " . DB_TABLE_SIGNUP . " WHERE hash='$user_hash'";

@@ -7,7 +7,7 @@ require_once 'functions.inc';
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 // define('SERVER_HOST', 'http://saysocket.com/');
-define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
+// define('SERVER_HOST', $protocol . $_SERVER['HTTP_HOST'] . '/');
 define('SILENT_SUFFIX', '> /dev/null 2>&1 &');
 
 define('REGEX_VIDEO_ID', '/[a-zA-Z0-9_-]+/');
@@ -58,7 +58,7 @@ $b64_config = array(
   'SS_CMD_VOICE' => 'voice',
   'SS_CMD_VOLUME' => 'volume',
 
-  'CMD_SAY' => 'say -v',
+  'CMD_SAY' => 'say',
   'CMD_CURL_SILENT' => 'curl -s',
   'CMD_OPEN' => 'open',
   'CMD_OSASCRIPT' => 'osascript -e',

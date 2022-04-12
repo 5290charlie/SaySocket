@@ -154,7 +154,8 @@ do {
       }
     } else if (preg_match(REGEX_SIMPLE_STRING, $buf)) {
       if (!command_exist($buf)) {
-        $cmd = '{{B64_CMD_SAY}}' . " $current_voice '$buf'";
+        // $cmd = '{{B64_CMD_SAY}}' . " $current_voice '$buf'";
+        $cmd = '{{B64_CMD_SAY}}' . ' ' . $buf;
         exec($cmd);
       } else {
         $msg .= '{{B64_STR_CANNOT_SAY}}' . " '$buf', " . '{{B64_STR_COMMAND_EXISTS}}';
@@ -176,14 +177,14 @@ function command_exist($cmd) {
 }
 
 function lookup_ip() {
-  for ($i = 0; $i < 10; $i++) {
-    $cmd = '{{B64_CMD_IPCONFIG}}' . ' ' . '{{B64_CMD_GETIFADDR}}' . ' ' . '{{B64_STR_INTERFACE_PREFIX}}' . $i;
-    $adr = trim(exec($cmd));
+  // for ($i = 0; $i < 10; $i++) {
+  //   $cmd = '{{B64_CMD_IPCONFIG}}' . ' ' . '{{B64_CMD_GETIFADDR}}' . ' ' . '{{B64_STR_INTERFACE_PREFIX}}' . $i;
+  //   $adr = trim(exec($cmd));
 
-    if (preg_match(REGEX_VALID_IP_ADDRESS, $adr)) {
-      return $adr;
-    }
-  }
+  //   if (preg_match(REGEX_VALID_IP_ADDRESS, $adr)) {
+  //     return $adr;
+  //   }
+  // }
 
   return ('{{B64_STR_DEFAULT_IP}}');
 }
@@ -191,21 +192,21 @@ function lookup_ip() {
 function load_voice_list() {
   $voices = array();
 
-  $cmd = '{{B64_CMD_SAY}}' . " '?'";
-  $ret = `$cmd`;
-  $arr = explode("\n", $ret);
+  // $cmd = '{{B64_CMD_SAY}}' . " '?'";
+  // $ret = `$cmd`;
+  // $arr = explode("\n", $ret);
 
-  foreach ($arr as $line) {
-    $stuff = explode(' ', $line);
+  // foreach ($arr as $line) {
+  //   $stuff = explode(' ', $line);
 
-    if (isset($stuff[0])) {
-      $voice = strtolower(trim($stuff[0]));
+  //   if (isset($stuff[0])) {
+  //     $voice = strtolower(trim($stuff[0]));
 
-      if ($voice != '') {
-        $voices[] = strtolower(trim($stuff[0]));
-      }
-    }
-  }
+  //     if ($voice != '') {
+  //       $voices[] = strtolower(trim($stuff[0]));
+  //     }
+  //   }
+  // }
 
   return $voices;
 }

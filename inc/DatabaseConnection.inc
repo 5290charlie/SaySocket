@@ -1,6 +1,6 @@
 <?php
 
-class DatabaseConnection extends \mysqli {
+class DatabaseConnection extends PDO {
   private $conn = false;
   private $resp = false;
 
@@ -11,6 +11,11 @@ class DatabaseConnection extends \mysqli {
     'DB_DATABASE',
   );
 
+  // TODO: Fix this hack
+  public function quote($string, $paramtype = NULL) {
+    return $string;
+  }
+
   public function __construct() {
     foreach (self::$required as $constant) {
       if (!defined($constant)) {
@@ -18,11 +23,14 @@ class DatabaseConnection extends \mysqli {
       }
     }
 
-    parent::__construct(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+    // $dsn = 'mysql:dbname=testdb;host=127.0.0.1'
+    $dsn = "mysql:dbname=" . DB_DATABASE . ";host=" . DB_HOSTNAME;
 
-    if (mysqli_connect_errno()) {
-      throw new DatabaseException('Connection failed: ' . mysqli_connect_errno());
-    }
+    parent::__construct($dsn, DB_USERNAME, DB_PASSWORD);
+
+    // if (mysqli_connect_errno()) {
+    //   throw new DatabaseException('Connection failed: ' . mysqli_connect_errno());
+    // }
   }
 
   public static function &getInstance() {
@@ -37,42 +45,46 @@ class DatabaseConnection extends \mysqli {
     return $instance;
   }
 
-  public function reset() {
-    if (is_object($this->resp)) {
-      $this->resp->close();
-    }
+  // public function reset() {
+  //   if (is_object($this->resp)) {
+  //     $this->resp->close();
+  //   }
 
-    $this->close();
+  //   $this->close();
 
-    self::__construct();
-  }
+  //   self::__construct();
+  // }
 
   public function runQuery($query, $close = false) {
     if ($this->resp = $this->query($query)) {
-      if ($close) {
-        $this->reset();
-      }
+      // if ($close) {
+      //   $this->reset();
+      // }
 
-      return $this->insert_id;
+      return $this->lastInsertId();
+      // return $this->insert_id;
     }
 
     return false;
   }
 
   public function getCount($query = false, $close = false) {
+    error_log('getCount query ' . $query);
     if ($query !== false) {
       $this->runQuery($query, false);
     }
 
     if ($this->resp !== false) {
-      $ret = $this->field_count;
+      $ret = $this->resp->rowCount();
     } else {
       $ret = 0;
     }
 
-    if ($close) {
-      $this->reset();
-    }
+    error_log('getCount() returning: '. $ret);
+
+    // if ($close) {
+    //   $this->reset();
+    // }
 
     return $ret;
   }
@@ -81,14 +93,14 @@ class DatabaseConnection extends \mysqli {
     $arrReturn = array();
 
     if ($this->getCount($query, false) > 0) {
-      while($row = $this->resp->fetch_array(MYSQLI_ASSOC)) {
+      while($row = $this->resp->fetchAll(PDO::FETCH_ASSOC)) {
         $arrReturn[] = $row;
       }
     }
 
-    if ($close) {
-      $this->reset();
-    }
+    // if ($close) {
+    //   $this->reset();
+    // }
 
     return $arrReturn;
   }

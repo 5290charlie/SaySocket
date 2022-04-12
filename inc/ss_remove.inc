@@ -9,7 +9,7 @@ function exec_on_yes($cmd) {
 }
 
 $to_remove = array(
-  LAUNCH_PLIST,
+// LAUNCH_PLIST,
   DIR_MAIN,
   INSTALLER,
   REMOVER
@@ -17,7 +17,7 @@ $to_remove = array(
 
 echo "Unload launch agent? (y/n) ";
 
-exec_on_yes('launchctl unload ' . LAUNCH_PLIST);
+// exec_on_yes('launchctl unload ' . LAUNCH_PLIST);
 
 foreach ($to_remove as $path) {
   if (file_exists($path)) {

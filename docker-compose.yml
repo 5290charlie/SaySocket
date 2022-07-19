@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  saysocket:
+    build: .
+    ports:
+      - 8888:80
+    volumes:
+      - .:/var/www/app
+    environment:
+      APP_ENV: local
+      DB_HOSTNAME: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      DB_DATABASE: saysocket
+      SERVER_HOST: http://localhost:8888/
+
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+
+  mysql:
+    image: mysql:8
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - 3333:3306
+
+volumes:
+  db:

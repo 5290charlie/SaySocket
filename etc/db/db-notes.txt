@@ -1,0 +1,20 @@
+SaySocket tables:
+
+table prefix: ss_
+
+ss_signup
+=========
+id:pk
+hash=string
+email=string
+updated=timestamp
+
+
+ss_status
+=========
+id:pk
+ip:string
+port:number
+hits:number=0
+signup_id: fk?
+updated: timestamp

@@ -17,9 +17,11 @@ try {
           $email = $_POST['email'];
 
           if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $email = $dbc->real_escape_string($email);
+            $email = $dbc->quote($email);
             $query = "SELECT hash, hits FROM " . DB_TABLE_SIGNUP . " WHERE email='$email'";
             $result = $dbc->getArray($query);
+
+            error_log("CHECKQUERY: $query");
 
             if (count($result) > 0) {
               $response['success'] = true;
@@ -28,6 +30,8 @@ try {
             } else {
               $hash = md5($email . mt_rand());
               $query = "INSERT INTO " . DB_TABLE_SIGNUP . " (email, hash) VALUES ('$email', '$hash')";
+
+              error_log("RUNNING QUERY: $query");
 
               if ($dbc->runQuery($query) > 0) {
                 $response['success'] = true;
@@ -49,7 +53,7 @@ try {
           $email = $_POST['email'];
 
           if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $email = $dbc->real_escape_string($email);
+            $email = $dbc->quote($email);
             $query = "DELETE FROM " . DB_TABLE_SIGNUP . " WHERE email='$email'";
 
             if ($dbc->runQuery($query) !== false) {

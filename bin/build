@@ -10,21 +10,21 @@ $remover = file_get_contents($dir_inc . 'ss_remove.inc');
 file_put_contents($dir_inc . 'installer.inc', $vars . $installer);
 file_put_contents($dir_inc . 'remover.inc', $vars . $remover);
 
-$punify_files = array(
-  'installer.inc',
-  'remover.inc',
-  'ss.inc'
-);
+// $punify_files = array(
+//   'installer.inc',
+//   'remover.inc',
+//   'ss.inc'
+// );
 
-foreach ($punify_files as $file) {
-  file_put_contents($dir_inc . $file . '.pny', $dec_bin);
-  $mode = ' >> ';
-  // if ($file != 'ss.inc') {
-  //   file_put_contents($dir_inc . $file . '.pny', $dec_bin);
-  //   $mode = ' >> ';
-  // } else {
-  //   $mode = ' > ';
-  // }
+// foreach ($punify_files as $file) {
+//   file_put_contents($dir_inc . $file . '.pny', $dec_bin);
+//   $mode = ' >> ';
+//   // if ($file != 'ss.inc') {
+//   //   file_put_contents($dir_inc . $file . '.pny', $dec_bin);
+//   //   $mode = ' >> ';
+//   // } else {
+//   //   $mode = ' > ';
+//   // }
 
-  exec('punify ' . $dir_inc . $file . $mode . $dir_inc . $file . '.pny');
-}
+//   exec('punify ' . $dir_inc . $file . $mode . $dir_inc . $file . '.pny');
+// }
